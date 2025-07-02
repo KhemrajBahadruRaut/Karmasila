@@ -1,0 +1,39 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import RequestQuote from "../components/Catalog/RequestQuote";
+import ConsultForm from "../components/ImportExport/ConsultForm";
+import AdminPanel from "../AdminPanel/AdminPanel";
+import Dashboard from "../AdminPanel/Dashbard";
+import AddPartForm from "../AdminPanel/cms/parts/AddPartForm";
+import PartDetails from "../components/navParts/PartDetails";
+import React from "react";
+import Home from "../pages/Home";
+import BlogSection from "../components/blogs/BlogSection";
+import AdminBlogUpload from "../AdminPanel/cms/BlogControls/AdminBlogUpload";
+const MyRoutes = () => {
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/request-quote" element={<RequestQuote />} />
+          <Route path="/consult" element={<ConsultForm />} />
+
+          {/* this is for  admin routes */}
+          <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+
+          {/* for dynamic part section  */}
+          <Route path="/parts/add" element={<AddPartForm />} />
+          <Route path="/parts/:id" element={<PartDetails />} />
+
+          {/* for Blog section */}
+          <Route path="/blog" element={<BlogSection />} />
+          <Route path="/blog/add" element={<AdminBlogUpload />} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
+};
+
+export default MyRoutes;
