@@ -18,11 +18,11 @@ const ImportExport = () => {
             <p className="text-lg text-gray-700 leading-relaxed mb-8 text-justify">
              Karmasila Enterprises Pvt. Ltd. provides reliable import and export services for a wide range of products, including crusher parts, heavy machinery components, and various industrial goods. We source products globally and export locally made products, managing the entire process, from documentation to delivery, with complete compliance and efficient logistics. Wherever your business needs to go, we're here to help it move forward.
             </p>
-            <Link to="/consult">
+            <a href="/consult">
             <button className="bg-yellow-400 hover:bg-yellow-700 text-black font-bold py-3 px-8 rounded-lg text-lg shadow-lg transition-all duration-300 transform hover:scale-105">
               Consult Now
             </button>
-            </Link>
+            </a>
           </div>
         </div>
 

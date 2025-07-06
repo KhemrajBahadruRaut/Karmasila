@@ -242,7 +242,12 @@ const AdminPanel = () => {
             <FaCog className="mr-3 text-lg" />
             <span>Settings</span>
           </button>
-          <button className="flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200 hover:bg-red-900 hover:text-red-200">
+          <button 
+          onClick={() => {
+    localStorage.removeItem("isAdminLoggedIn");
+    window.location.href = "/adminlogin";
+  }}
+          className="flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200 hover:bg-red-900 hover:text-red-200">
             <FaSignOutAlt className="mr-3 text-lg" />
             <span>Logout</span>
           </button>
@@ -278,10 +283,10 @@ const AdminPanel = () => {
                 </button>
               </div> */}
               <div className="flex items-center space-x-2">
-                <div className="h-10 w-10 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold">
-                  AR
-                </div>
-                <span className="text-gray-700 font-medium">Aman Raut</span>
+                {/* <div className="h-20 w-20 rounded-full bg-gradient-to-r from-yellow-500 to-yellow-600 flex items-center justify-center text-white font-bold">
+                  <img src="/image-removebg-preview.png" alt="" />
+                </div> */}
+                <span className="text-gray-700 font-medium">Welcome! Admin</span>
               </div>
             </div>
           </div>

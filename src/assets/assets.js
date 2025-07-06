@@ -13,6 +13,7 @@ import blow_bars from './blow_bars.jpg';
 import jaw_crusher_plate from './jaw_crusher_plate.jpg';
 import cone_crusher from './cone_crusher.jpg';
 import Vibrating_screen_mesh from './vibrating_screen_mesh.png';
+import logoTEXT from './logoTEXT.svg'
 
 
 export const assets = {
@@ -31,4 +32,6 @@ export const assets = {
     jaw_crusher_plate: jaw_crusher_plate,
     cone_crusher: cone_crusher,
     Vibrating_screen_mesh: Vibrating_screen_mesh,
+
+    logoTEXT: logoTEXT
     };

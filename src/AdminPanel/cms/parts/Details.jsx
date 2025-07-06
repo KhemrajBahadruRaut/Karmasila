@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { FaImage } from "react-icons/fa";
 
 const Details = () => {
   const [parts, setParts] = useState([]);
@@ -38,6 +39,7 @@ const Details = () => {
 
  const fetchDetails = () => {
   fetch("https://karmasila.com.np/karmashila/parts_details/get_all.php")
+  // fetch("http://localhost/karmashila/parts_details/get_all.php")
     .then((res) => {
       if (!res.ok) {
         throw new Error("Server returned " + res.status);
@@ -113,7 +115,7 @@ const Details = () => {
     setEditForm({
       title: detail.title,
       description: detail.description,
-      image: null, // clear image unless user uploads new
+      image: null,
     });
   };
 
@@ -206,9 +208,9 @@ const Details = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="p-6 max-w-3xl mx-auto bg-white rounded shadow-md"
+      className="p-6 max-w-3xl mx-auto bg-white rounded shadow-md text-black"
     >
-      <h2 className="text-xl font-semibold mb-4">Add Sub-Part Details</h2>
+      <h2 className="text-xl font-semibold mb-4 text-black">Add Sub-Part Details</h2>
 
       <label className="block mb-2">Select Part</label>
       <select
@@ -248,21 +250,33 @@ const Details = () => {
         className="w-full p-2 mb-4 border rounded"
       />
 
-      <label className="block mb-2">Upload Image</label>
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        ref={fileInputRef}
-        className="mb-4"
-      />
+      <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Upload Image</label>
+            <div className="flex items-center">
+              <label className="cursor-pointer bg-white border  text-gray-500 border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50 transition-colors">
+                <span className="flex items-center">
+                  <FaImage className="mr-2 text-gray-500" />
+                  {form.image ? form.image.name : "Choose an image"}
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  ref={fileInputRef}
+                  className="hidden  text-black"
+                />
+              </label>
+            </div>
+          </div>
+
+        
 
       {error && <p className="text-red-600 mb-4">{error}</p>}
 
       <button
         type="submit"
         disabled={loading}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+        className="bg-blue-600 text-white px-4 py-2 mt-3 rounded hover:bg-blue-700 disabled:opacity-50"
       >
         {loading ? "Saving..." : "Save Details"}
       </button>

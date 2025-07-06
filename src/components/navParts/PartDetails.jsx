@@ -41,7 +41,7 @@ const PartDetails = () => {
   if (error) return <div className="text-red-600 text-center p-4">{error}</div>;
 
   return (
-    <>
+    <div className="bg-white">
       <Navbar/>
     <section className="min-h-screen bg-gradient-to-b container mx-auto from-white to-gray-100 px-4 md:px-20 pb-16">
       <div className="text-center mb-12">
@@ -155,7 +155,7 @@ const PartDetails = () => {
         )}
       </AnimatePresence>
     </section>
-        </>
+        </div>
 
   );
 };

@@ -1,15 +1,17 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 import RequestQuote from "../components/Catalog/RequestQuote";
 import ConsultForm from "../components/ImportExport/ConsultForm";
 import AdminPanel from "../AdminPanel/AdminPanel";
 import Dashboard from "../AdminPanel/Dashbard";
 import AddPartForm from "../AdminPanel/cms/parts/AddPartForm";
 import PartDetails from "../components/navParts/PartDetails";
-import React from "react";
 import Home from "../pages/Home";
 import BlogSection from "../components/blogs/BlogSection";
 import AdminBlogUpload from "../AdminPanel/cms/BlogControls/AdminBlogUpload";
+import AdminLogin from "../AdminPanel/AdminLogin";
+import ProtectedRoute from "./ProtectedRoute";
 const MyRoutes = () => {
+
   return (
     <>
       <BrowserRouter>
@@ -18,8 +20,6 @@ const MyRoutes = () => {
           <Route path="/request-quote" element={<RequestQuote />} />
           <Route path="/consult" element={<ConsultForm />} />
 
-          {/* this is for  admin routes */}
-          <Route path="/admin" element={<AdminPanel />} />
           <Route path="/dashboard" element={<Dashboard />} />
 
           {/* for dynamic part section  */}
@@ -29,6 +29,18 @@ const MyRoutes = () => {
           {/* for Blog section */}
           <Route path="/blog" element={<BlogSection />} />
           <Route path="/blog/add" element={<AdminBlogUpload />} />
+
+          {/*this is for admin panel  */}
+          <Route path="/adminlogin" element={<AdminLogin />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminPanel />
+              </ProtectedRoute>
+            }
+          />
+
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </BrowserRouter>
