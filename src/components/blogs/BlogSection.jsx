@@ -47,14 +47,8 @@ const BlogSection = () => {
       <section className="min-h-screen container mx-auto bg-gradient-to-b from-white to-gray-100 px-4 md:px-20 pb-16 ">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 relative inline-block">
-            Latest <span className="text-green-900">Blogs</span>
-            <motion.span
-              layoutId="highlight"
-              className="block h-[4px] w-24 bg-orange-700 mt-2 mx-auto rounded-full"
-              initial={{ width: 0 }}
-              animate={{ width: "100%" }}
-              transition={{ duration: 0.6 }}
-            />
+            Latest Blogs
+        
           </h2>
           <p className="text-gray-500 mt-2 text-sm md:text-base">
             Stay updated with our newest insights and stories.

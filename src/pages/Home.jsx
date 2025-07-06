@@ -1,7 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import { assets } from '../assets/assets.js';
-import { Link } from 'react-router-dom';
 import AboutUs from '../components/Home_sub/AboutUs.jsx';
 import OurServices from '../components/Home_sub/OurServices.jsx';
 import ImportExport from '../components/ImportExport/ImportExport.jsx';
@@ -18,6 +17,19 @@ const Home = () => {
             catalogRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     };
+
+
+   useEffect(() => {
+  const id = localStorage.getItem("scrollToId");
+  if (id) {
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+    localStorage.removeItem("scrollToId");
+  }
+}, []);
+
 
     return (
         <>
