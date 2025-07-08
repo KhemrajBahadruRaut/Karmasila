@@ -1,16 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { assets } from "../assets/assets.js";
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { assets } from '../assets/assets.js';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isPartsOpen, setIsPartsOpen] = useState(false);
   const [parts, setParts] = useState([]);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+    const isActive = (path) => location.pathname === path;
+  const isPartsActive = location.pathname.startsWith("/parts/");
 
   useEffect(() => {
     fetch("https://karmasila.com.np/karmashila/parts/get_nav_parts.php")
-    // fetch("http://localhost/karmashila/parts/get_nav_parts.php")
       .then((res) => {
         if (!res.ok) throw new Error(`Server error: ${res.status}`);
         return res.json();
@@ -37,91 +40,98 @@ const Navbar = () => {
     };
   }, [isPartsOpen]);
 
-  // Filter active parts only
   const activeParts = parts.filter((part) => parseInt(part.status) === 1);
 
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  // const handleClick = () => {
-  //   if (location.pathname === "/") {
-  //     const el = document.getElementById("about-us");
-  //     if (el) el.scrollIntoView({ behavior: "smooth" });
-  //   } else {
-  //     // Store intent to scroll after navigation
-  //     localStorage.setItem("scrollToAbout", "true");
-  //     navigate("/");
-  //   }
-  // }
+  // Helper function to scroll or navigate
+  const handleScrollOrNavigate = (id) => {
+    if (location.pathname === "/") {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/", { state: { scrollToId: id } });
+    }
+  };
 
   return (
-    <nav className=" 2xl:container mx-auto">
-      <div className=" mx-auto px-4">
+    <nav className="2xl:container mx-auto">
+      <div className="mx-auto px-4">
         <div className="flex justify-between h-24 items-center">
-          {/* Logo - stays on the left */}
-          <div className="flex items-center h-24 w-xlg">
+          {/* Logo */}
+          <div className="flex items-center h-24">
             <Link to="/">
-              <button>
-                <img
-                  src={assets.Full_logo}
-                  alt="Karmasila logo"
-                  className="logo bg-white"
-                />
-              </button>
+              <img src={assets.Karmasila_logo} alt="Karmasila logo" title='Karmasila logo' className="logo h-32" />
             </Link>
           </div>
 
-          {/* Desktop Menu - centered */}
-          <div className="hidden lg:flex flex-grow  justify-end items-center">
-            <div className="flex space-x-2 items-center">
+          {/* Hamburger Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden text-gray-600 hover:text-gray-900 focus:outline-none"
+          >
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              {isOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
+
+          {/* Main Menu */}
+          <div
+            className={`${isOpen ? "flex" : "hidden"
+              } lg:flex flex-col lg:flex-row absolute lg:static top-24 left-0 w-full lg:w-auto bg-white lg:bg-transparent z-20 border-t lg:border-none`}
+          >
+            <div className="flex flex-col lg:flex-row w-full lg:space-x-2">
               <Link
                 to="/"
-                className="px-4 py-2 rounded-md text-base text-black font-semibold hover:bg-gray-100 transition-colors"
+                className={`px-4 py-2 text-base font-semibold transition-colors hover:bg-gray-100 ${isActive("/") ? "text-black bg-gray-300 rounded-sm" : "text-black"}`}
+                onClick={() => setIsOpen(false)}
               >
                 Home
               </Link>
-              <button
-                onClick={() => {
-                  if (location.pathname === "/") {
-                    const el = document.getElementById("about-us");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  } else {
-                    localStorage.setItem("scrollToId", "about-us");
-                    navigate("/");
-                  }
-                  setIsOpen(false); // close mobile menu
-                }}
-                className="block px-3 py-2 rounded-md text-base font-medium text-black hover:bg-gray-100"
+
+
+              <Link
+                to="/about-us"
+                className={`px-4 py-2 text-base font-semibold transition-colors hover:bg-gray-100 ${isActive("/about-us") ? "text-black bg-gray-300 rounded-sm" : "text-black"}`}
+                onClick={() => setIsOpen(false)}
               >
                 About Us
-              </button>
+              </Link>
+
 
               <button
                 onClick={() => {
-                  if (location.pathname === "/") {
-                    const el = document.getElementById("services");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  } else {
-                    localStorage.setItem("scrollToId", "services");
-                    navigate("/");
-                  }
-                  setIsOpen(false); // also close the menu
+                  handleScrollOrNavigate("services");
+                  setIsOpen(false);
                 }}
-                className="block px-3 py-2 text-black rounded-md text-base font-medium hover:bg-gray-100"
+                className="px-4 py-2 text-base text-black font-semibold hover:bg-gray-100 transition-colors text-left w-full lg:w-auto"
               >
                 Our Services
               </button>
 
+              {/* Parts Dropdown */}
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setIsPartsOpen(!isPartsOpen)}
-                  className="px-4 py-2 rounded-md text-base text-black font-semibold hover:bg-gray-100 transition-colors flex items-center"
+                  className={`flex items-center px-4 py-2 text-base font-semibold transition-colors hover:bg-gray-100 w-full lg:w-auto ${isPartsActive ? "text-blue-600" : "text-black"
+                    }`}
                 >
                   Parts
                   <svg
-                    className={`ml-1 h-4 w-4 text-gray-600 transform transition-transform ${
-                      isPartsOpen ? "rotate-180" : ""
-                    }`}
+                    className={`ml-1 h-4 w-4 transform transition-transform ${isPartsOpen ? "rotate-180" : ""
+                      }`}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
@@ -135,22 +145,23 @@ const Navbar = () => {
                 </button>
 
                 {isPartsOpen && (
-                  <div className="absolute left-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-10 max-h-64 overflow-y-auto">
+                  <div className="absolute left-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-30 max-h-64 overflow-y-auto">
                     {activeParts.length > 0 ? (
                       activeParts.map((part) => (
                         <Link
                           key={part.id}
-                          to={`/parts/${part.id}`} // 👈 Use ID directly
+                          to={`/parts/${part.id}`}
                           className="block px-4 py-2 text-black text-sm hover:bg-gray-100"
-                          onClick={() => setIsPartsOpen(false)}
+                          onClick={() => {
+                            setIsPartsOpen(false);
+                            setIsOpen(false);
+                          }}
                         >
                           {part.name}
                         </Link>
                       ))
                     ) : (
-                      <div className="px-4 py-2 text-gray-500">
-                        No parts available
-                      </div>
+                      <div className="px-4 py-2 text-gray-500">No parts available</div>
                     )}
                   </div>
                 )}
@@ -158,222 +169,37 @@ const Navbar = () => {
 
               <button
                 onClick={() => {
-                  if (location.pathname === "/") {
-                    const el = document.getElementById("import-export");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  } else {
-                    localStorage.setItem("scrollToId", "import-export");
-                    navigate("/");
-                  }
+                  handleScrollOrNavigate("import-export");
+                  setIsOpen(false);
                 }}
-                className="px-4 py-2 rounded-md text-base text-black font-semibold hover:bg-gray-100 transition-colors"
+                className="px-4 py-2 text-base text-black font-semibold hover:bg-gray-100 transition-colors text-left w-full lg:w-auto"
               >
                 Import & Export
               </button>
 
               <Link
                 to="/blog"
-                className="px-4 py-2 rounded-md text-base font-semibold text-black hover:bg-gray-100 transition-colors"
+                className={`px-4 py-2 text-base font-semibold transition-colors hover:bg-gray-100 ${isActive("/blog") ? "text-black bg-gray-300 rounded-sm" : "text-black"}`}
+                onClick={() => setIsOpen(false)}
               >
                 Blog
               </Link>
-              <button
-                onClick={() => {
-                  if (location.pathname === "/") {
-                    const el = document.getElementById("contact");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  } else {
-                    localStorage.setItem("scrollToId", "contact");
-                    navigate("/");
-                  }
-                  setIsOpen(false);
-                }}
-                className="block px-3 py-2 rounded-md text-black text-base font-medium hover:bg-gray-100"
+
+
+              <Link
+                to="/contact"
+                className={`px-4 py-2 text-base font-semibold transition-colors hover:bg-gray-100 ${isActive("/contact") ? "text-black bg-gray-300 rounded-sm" : "text-black"}`}
+                onClick={() => setIsOpen(false)}
               >
                 Contact Us
-              </button>
-            </div>
-          </div>
+              </Link>
 
-          {/* Mobile menu button */}
-          <div className="lg:hidden  items-center  ">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-600  hover:text-gray-900 focus:outline-none"
-            >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {isOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
-            </button>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className=" bg-white text-black">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <div className="relative mb-4">
-              {/* <input
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full py-2 px-4 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-              <button
-                className="absolute right-3 top-1/2 transform -translate-y-1/2"
-                onClick={() => {
-                  // Handle search functionality
-                  console.log('Searching for:', searchQuery);
-                }}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
-            */}
-            </div>
-            <Link
-              to="/"
-              className="block px-3 py-2 rounded-md text-base font-sm hover:bg-gray-100"
-              onClick={() => setIsOpen(false)}
-            >
-              Home
-            </Link>
-
-            <button
-              onClick={() => {
-                const el = document.getElementById("about-us");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100"
-            >
-              About Us
-            </button>
-            <div className="relative" ref={dropdownRef}>
-              <button
-                onClick={() => setIsPartsOpen(!isPartsOpen)}
-                className="px-4 py-2 rounded-md text-base text-black font-semibold hover:bg-gray-100 transition-colors flex items-center"
-              >
-                Parts
-                <svg
-                  className={`ml-1 h-4 w-4 text-gray-600 transform transition-transform ${
-                    isPartsOpen ? "rotate-180" : ""
-                  }`}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-
-              {isPartsOpen && (
-                <div className="absolute left-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-10">
-                  <Link
-                    to="/"
-                    className="block px-4 py-2 text-black text-sm hover:bg-gray-100"
-                    onClick={() => setIsPartsOpen(false)}
-                  >
-                    Jaw Crusher Spare Parts
-                  </Link>
-                  <Link
-                    to="/"
-                    className="block px-4 py-2 text-black text-sm hover:bg-gray-100"
-                    onClick={() => setIsPartsOpen(false)}
-                  >
-                    Cone Crusher Spare Parts
-                  </Link>
-                  <Link
-                    to="/"
-                    className="block px-4 py-2 text-black text-sm hover:bg-gray-100"
-                    onClick={() => setIsPartsOpen(false)}
-                  >
-                    Impact Crusher Spare Parts
-                  </Link>
-                  <Link
-                    to="/"
-                    className="block px-4 py-2 text-black text-sm hover:bg-gray-100"
-                    onClick={() => setIsPartsOpen(false)}
-                  >
-                    Wear Liner Plates For Chutes
-                  </Link>
-
-                  <Link
-                    to="/"
-                    className="block px-4 py-2 text-black text-sm hover:bg-gray-100"
-                    onClick={() => setIsPartsOpen(false)}
-                  >
-                    Rubber Liners
-                  </Link>
-
-                  <Link
-                    to="/"
-                    className="block px-4 py-2 text-black text-sm hover:bg-gray-100"
-                    onClick={() => setIsPartsOpen(false)}
-                  >
-                    Bolts and Nuts
-                  </Link>
-                </div>
-              )}
-            </div>
-            <Link
-              to="/Import&Export"
-              className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100"
-              onClick={() => setIsOpen(false)}
-            >
-              Import & Export
-            </Link>
-            <Link
-              to="/"
-              className="block px-3 py-2 rounded-md text-base font-sm hover:bg-gray-100"
-              onClick={() => setIsOpen(false)}
-            >
-              Blog
-            </Link>
-
-            <button
-              onClick={() => {
-                if (location.pathname === "/") {
-                  const el = document.getElementById("contact");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                } else {
-                  localStorage.setItem("scrollToId", "contact");
-                  navigate("/");
-                }
-              }}
-              className="px-4 py-2 rounded-md text-base text-black font-semibold hover:bg-gray-100 transition-colors"
-            >
-              Contact Us
-            </button>
-          </div>
-        </div>
-      )}
     </nav>
+
   );
 };
 

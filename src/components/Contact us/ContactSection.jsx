@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { IoIosCall } from 'react-icons/io';
-import { IoLocation, IoTime  } from "react-icons/io5";
+import { IoLocation, IoTime } from "react-icons/io5";
 
-const Contact = () => {
+const ContactSection = () => {
   // State to track whether to show the map
   const [showMap, setShowMap] = useState(false);
  const [email, setEmail] = useState('');
@@ -68,18 +68,18 @@ const Contact = () => {
                     onClick={() => setShowMap(!showMap)}
                     className="text-gray-600 underline hover:text-yellow-600 transition"
                   >
-                     Sukhedhara, Kathmandu
+                    Sukhedhara, Kathmandu
                   </button>
                 </div>
 
                 <div>
-                  <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-800"> <IoTime  />Working Hours</h3>
+                  <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-800"> <IoTime />Working Hours</h3>
                   <p className="text-gray-600">10 A.M to 6 P.M (Sun to Fri)</p>
                 </div>
               </div>
             </div>
 
-            
+
           </div>
 
           {/* Right Column */}
@@ -127,25 +127,25 @@ const Contact = () => {
 
 
         {/* Conditionally Render Map */}
-            {showMap && (
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <div className="h-64 bg-gray-200 rounded-md overflow-hidden">
-                  <iframe
-                    title="Company Location"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.637132472818!2d85.34384587519509!3d27.728487924559197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb196796c2dde3%3A0x36a3b22f875af582!2sSukedhara%20Communication!5e0!3m2!1sen!2snp!4v1751367998251!5m2!1sen!2snp"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen=""
-                    loading="lazy"
-                  ></iframe>
-                
-                </div>
-              </div>
-            )}
+        {showMap && (
+          <div className="bg-white p-6 rounded-lg shadow-sm">
+            <div className="h-64 bg-gray-200 rounded-md overflow-hidden">
+              <iframe
+                title="Company Location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.637132472818!2d85.34384587519509!3d27.728487924559197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb196796c2dde3%3A0x36a3b22f875af582!2sSukedhara%20Communication!5e0!3m2!1sen!2snp!4v1751367998251!5m2!1sen!2snp"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+              ></iframe>
+
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default Contact;
+export default ContactSection;

@@ -23,10 +23,12 @@ const AboutUs = () => {
                         <p className="text-lg text-gray-700 leading-relaxed text-justify">
                             Karmasila Enterprises supplies high-quality crusher parts, heavy equipment spares, and import/export services to mining, construction, and aggregate businesses across Nepal with a reputation for reliability, efficiency, and customer satisfaction.
                         </p>
-
-                        <button className="bg-yellow-400 hover:bg-yellow-700 text-black font-bold py-3 px-8 rounded-lg text-lg shadow-lg transition-all duration-300 transform hover:scale-105">
-                            Learn More
-                        </button>
+                      
+                        <a href="/about-us"   title="Fill out the form to consult with us" >
+            <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-lg text-lg shadow-lg transition-all duration-300 transform hover:scale-105">
+              Learn more
+            </button>
+            </a>
                     </div>
                 </div>
 

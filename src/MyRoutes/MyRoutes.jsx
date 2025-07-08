@@ -10,6 +10,8 @@ import BlogSection from "../components/blogs/BlogSection";
 import AdminBlogUpload from "../AdminPanel/cms/BlogControls/AdminBlogUpload";
 import AdminLogin from "../AdminPanel/AdminLogin";
 import ProtectedRoute from "./ProtectedRoute";
+import About from "../pages/About";
+import Contact from "../pages/Contact";
 const MyRoutes = () => {
 
   return (
@@ -17,6 +19,9 @@ const MyRoutes = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about-us" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          
           <Route path="/request-quote" element={<RequestQuote />} />
           <Route path="/consult" element={<ConsultForm />} />
 

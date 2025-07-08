@@ -112,7 +112,7 @@ const AdminLogin = () => {
     >
       
       <img 
-      src={assets.logoTEXT} 
+      src={assets.Karmasila_logo} 
       alt="Logo" 
       className="mb-4 w-52 h-auto mx-auto" 
     />

@@ -14,13 +14,13 @@ const Footer = () => {
           <div className="flex flex-col items-center">
             <div className="">
               <h3 className="text-lg font-semibold text-gray-800 mb-4 border-b-2 border-yellow-400 pb-2">
-              Karmasila Enterprises
-            </h3>
+                Karmasila Enterprises
+              </h3>
             </div>
-          
-              <ul className="space-y-2 flex flex-col items-center text-center">
-                <li> <p className="mb-2 text-gray-600 not-italic text-center md:text-left">karmasilaenterprises@gmail.com</p></li>
-              
+
+            <ul className="space-y-2 flex flex-col items-center text-center">
+              <li> <p className="mb-2 text-gray-600 not-italic text-center md:text-left">karmasilaenterprises@gmail.com</p></li>
+
               {/* <li><a 
                 href="https://wa.me/9779851352013" 
                 target="_blank" 
@@ -33,25 +33,47 @@ const Footer = () => {
                 WhatsApp Chat
                 </span>
               </a></li> */}
-              
-              
-            
-            <li>
-            <div className="flex space-x-4 mt-2">
-              <a href="https://www.facebook.com/karmasilaenterprises" target="_blank" className="text-gray-600 hover:text-yellow-600 transition-colors">
-                <FaFacebook size={20} />
-              </a>
-              <a href="https://www.instagram.com/karmasila_enterprises/" target="_blank" className="text-gray-600 hover:text-yellow-600 transition-colors">
-                <FaInstagram size={20} />
-              </a>
-              <a href="#" target="_blank" className="text-gray-600 hover:text-yellow-600 transition-colors">
-                <SiGmail  size={20} />
-              </a>
-              <a href="#" target="_blank" className="text-gray-600 hover:text-yellow-600 transition-colors">
-                <FaViber  size={20} />
-              </a>
-            </div>
-            </li>
+
+
+
+              <li>
+                <div className="flex space-x-4 mt-2">
+                  <a
+                    href="https://www.facebook.com/karmasilaenterprises"
+                    title="Visit our Facebook"
+                    target="_blank"
+                    className="text-gray-600 hover:text-yellow-600 transition-colors"
+                  >
+                    <FaFacebook size={20} />
+                  </a>
+
+                  <a
+                    href="https://www.instagram.com/karmasila_enterprises/"
+                    title="Visit our Instagram"
+                    target="_blank"
+                    className="text-gray-600 hover:text-yellow-600 transition-colors"
+                  >
+                    <FaInstagram size={20} />
+                  </a>
+
+                  <a
+                    href="mailto:karmasilaenterprises@gmail.com"
+                    title="Email us"
+                    className="text-gray-600 hover:text-yellow-600 transition-colors"
+                  >
+                    <SiGmail size={20} />
+                  </a>
+
+                  <a
+                    href="viber://chat?number=+9779851352013"
+                    title="Contact us on Viber"
+                    className="text-gray-600 hover:text-yellow-600 transition-colors"
+                  >
+                    <FaViber size={20} />
+                  </a>
+                </div>
+              </li>
+
             </ul>
           </div>
 
@@ -110,39 +132,43 @@ const Footer = () => {
                   Blog
                 </Link>
               </li> */}
-              <li>
-                <Link to="/" className="text-gray-600 hover:text-yellow-600 transition-colors">
+              {/* <li>
+                <a href="/Faq" className="text-gray-600 hover:text-yellow-600 transition-colors">
                   FAQs
-                </Link>
-              </li>
+                </a>
+              </li> */}
             </ul>
           </div>
 
-          
+
         </div>
 
         {/* Copyright */}
         <div className="mt-6 pt-4 border-t border-gray-300">
-          
-            {/* Powered By */}
+
+          {/* Powered By */}
           <div className="flex flex-col items-center">
             <h3 className="text-md text-gray-600">
               Powered By
             </h3>
             <div className="flex items-center space-x-3">
-              
+
               <div>
                 <a
                   href="https://gr8nepal.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-600 hover:text-yellow-600 transition-colors font-medium"
+                  alt="Visit GR8 Nepal"
+                  title="Visit GR8 Nepal"
+
                 >
                   <img
-                src={assets.GR8NEPAL}
-                alt="GR8 Logo"
-                className="w-10 h-10 object-contain"
-              />
+                    src={assets.GR8NEPAL}
+                    alt="GR8 Logo"
+                    className="w-10 h-10 object-contain"
+                    title='GR8 Logo'
+                  />
                 </a>
               </div>
             </div>
