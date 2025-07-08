@@ -29,7 +29,7 @@ const CrusherCatalogs = () => {
     },
     {
       id: 4,
-      title: "Single toggle jaw Crushers",
+      title: "Single Toggle Jaw Crushers",
       alt: "Single toggle jaw Crushers - Karmasila Enterprises",
       image: assets.Karmasila_jaw_crusher_toggle,
     },
@@ -42,7 +42,7 @@ const CrusherCatalogs = () => {
     },
     {
       id: 6,
-      title: "Double toggle jaw Crushers",
+      title: "Double Toggle Jaw Crushers",
       alt: "Double toggle jaw Crushers - Karmasila Enterprises",
       image: assets.Karmasila_jaw_crusher_double,
     }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../Navbar";
+import Footer from "../Footer/Footer";
 
 const BlogSection = () => {
   const [blogs, setBlogs] = useState([]);
@@ -42,6 +43,7 @@ const BlogSection = () => {
   }
 
   return (
+    <>
     <div className="bg-white">
     <Navbar/>
       <section className="min-h-screen container mx-auto bg-gradient-to-b from-white to-gray-100 px-4 md:px-20 pb-16 ">
@@ -155,6 +157,8 @@ const BlogSection = () => {
         </AnimatePresence>
       </section>
     </div>
+    <Footer />
+    </>
   );
 };
 

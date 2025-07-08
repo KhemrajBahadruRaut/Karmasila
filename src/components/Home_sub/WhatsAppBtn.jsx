@@ -27,7 +27,7 @@ function WhatsAppBtn() {
   };
 
   return (
-    <div className="fixed bottom-10 right-10 flex flex-col items-center space-y-3 z-[1000]">
+    <div className="fixed bottom-8 right-8 flex flex-col items-center space-y-3 z-[1000]">
       {/* Scroll to Top Button */}
       {showScroll && (
         <button

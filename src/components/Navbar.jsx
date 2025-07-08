@@ -7,9 +7,10 @@ const Navbar = () => {
   const [isPartsOpen, setIsPartsOpen] = useState(false);
   const [parts, setParts] = useState([]);
   const dropdownRef = useRef(null);
-
   const navigate = useNavigate();
   const location = useLocation();
+    const isActive = (path) => location.pathname === path;
+  const isPartsActive = location.pathname.startsWith("/parts/");
 
   useEffect(() => {
     fetch("https://karmasila.com.np/karmashila/parts/get_nav_parts.php")
@@ -94,21 +95,21 @@ const Navbar = () => {
             <div className="flex flex-col lg:flex-row w-full lg:space-x-2">
               <Link
                 to="/"
-                className="px-4 py-2 text-base text-black font-semibold hover:bg-gray-100 transition-colors"
+                className={`px-4 py-2 text-base font-semibold transition-colors hover:bg-gray-100 ${isActive("/") ? "text-black bg-gray-300 rounded-sm" : "text-black"}`}
                 onClick={() => setIsOpen(false)}
               >
                 Home
               </Link>
 
-              <button
-                onClick={() => {
-                  handleScrollOrNavigate("about-us");
-                  setIsOpen(false);
-                }}
-                className="px-4 py-2 text-base text-black font-semibold hover:bg-gray-100 transition-colors text-left w-full lg:w-auto"
+
+              <Link
+                to="/about-us"
+                className={`px-4 py-2 text-base font-semibold transition-colors hover:bg-gray-100 ${isActive("/about-us") ? "text-black bg-gray-300 rounded-sm" : "text-black"}`}
+                onClick={() => setIsOpen(false)}
               >
                 About Us
-              </button>
+              </Link>
+
 
               <button
                 onClick={() => {
@@ -124,7 +125,8 @@ const Navbar = () => {
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setIsPartsOpen(!isPartsOpen)}
-                  className="flex items-center px-4 py-2 text-base text-black font-semibold hover:bg-gray-100 transition-colors w-full lg:w-auto"
+                  className={`flex items-center px-4 py-2 text-base font-semibold transition-colors hover:bg-gray-100 w-full lg:w-auto ${isPartsActive ? "text-blue-600" : "text-black"
+                    }`}
                 >
                   Parts
                   <svg
@@ -177,22 +179,21 @@ const Navbar = () => {
 
               <Link
                 to="/blog"
-                  title="Visit our blog page"
-                className="px-4 py-2 text-base text-black font-semibold hover:bg-gray-100 transition-colors"
+                className={`px-4 py-2 text-base font-semibold transition-colors hover:bg-gray-100 ${isActive("/blog") ? "text-black bg-gray-300 rounded-sm" : "text-black"}`}
                 onClick={() => setIsOpen(false)}
               >
                 Blog
               </Link>
 
-              <button
-                onClick={() => {
-                  handleScrollOrNavigate("contact");
-                  setIsOpen(false);
-                }}
-                className="px-4 py-2 text-base text-black font-semibold hover:bg-gray-100 transition-colors text-left w-full lg:w-auto"
+
+              <Link
+                to="/contact"
+                className={`px-4 py-2 text-base font-semibold transition-colors hover:bg-gray-100 ${isActive("/contact") ? "text-black bg-gray-300 rounded-sm" : "text-black"}`}
+                onClick={() => setIsOpen(false)}
               >
                 Contact Us
-              </button>
+              </Link>
+
             </div>
           </div>
         </div>

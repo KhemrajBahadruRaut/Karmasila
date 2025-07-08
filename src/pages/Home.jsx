@@ -7,7 +7,7 @@ import OurServices from '../components/Home_sub/OurServices.jsx';
 import ImportExport from '../components/ImportExport/ImportExport.jsx';
 import Footer from '../components/Footer/Footer.jsx';
 import CrusherCatalogs from '../components/Catalog/CrusherCatalogs.jsx';
-import Contact from '../components/Contact us/Contact.jsx';
+import Contact from '../components/Contact us/ContactSection.jsx';
 import WhatsAppBtn from '../components/Home_sub/WhatsappBtn.jsx';
 
 const Home = () => {

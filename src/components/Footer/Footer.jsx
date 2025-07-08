@@ -38,23 +38,42 @@ const Footer = () => {
 
               <li>
                 <div className="flex space-x-4 mt-2">
-                  <a href="https://www.facebook.com/karmasilaenterprises"   title="Visit our Facebook" target="_blank" className="text-gray-600 hover:text-yellow-600 transition-colors">
+                  <a
+                    href="https://www.facebook.com/karmasilaenterprises"
+                    title="Visit our Facebook"
+                    target="_blank"
+                    className="text-gray-600 hover:text-yellow-600 transition-colors"
+                  >
                     <FaFacebook size={20} />
                   </a>
-                  <a href="https://www.instagram.com/karmasila_enterprises/"   title="Visit our Instagram" target="_blank" className="text-gray-600 hover:text-yellow-600 transition-colors">
+
+                  <a
+                    href="https://www.instagram.com/karmasila_enterprises/"
+                    title="Visit our Instagram"
+                    target="_blank"
+                    className="text-gray-600 hover:text-yellow-600 transition-colors"
+                  >
                     <FaInstagram size={20} />
                   </a>
 
-                  <a href="mailto:karmasilaenterprises@gmail.com"   title="Email to us" target="_blank"
-                  className="text-gray-600 hover:text-yellow-600 transition-colors">
+                  <a
+                    href="mailto:karmasilaenterprises@gmail.com"
+                    title="Email us"
+                    className="text-gray-600 hover:text-yellow-600 transition-colors"
+                  >
                     <SiGmail size={20} />
                   </a>
 
-                  <a href="https://www.viber.com/en/"   title="Contact us on viber" target="_blank" className="text-gray-600 hover:text-yellow-600 transition-colors">
+                  <a
+                    href="viber://chat?number=+9779851352013"
+                    title="Contact us on Viber"
+                    className="text-gray-600 hover:text-yellow-600 transition-colors"
+                  >
                     <FaViber size={20} />
                   </a>
                 </div>
               </li>
+
             </ul>
           </div>
 
@@ -113,11 +132,11 @@ const Footer = () => {
                   Blog
                 </Link>
               </li> */}
-              <li>
-                <Link to="/" className="text-gray-600 hover:text-yellow-600 transition-colors">
+              {/* <li>
+                <a href="/Faq" className="text-gray-600 hover:text-yellow-600 transition-colors">
                   FAQs
-                </Link>
-              </li>
+                </a>
+              </li> */}
             </ul>
           </div>
 
@@ -141,7 +160,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="text-gray-600 hover:text-yellow-600 transition-colors font-medium"
                   alt="Visit GR8 Nepal"
-                    title="Visit GR8 Nepal"
+                  title="Visit GR8 Nepal"
 
                 >
                   <img

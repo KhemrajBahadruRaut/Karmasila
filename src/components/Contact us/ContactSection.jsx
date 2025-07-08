@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IoIosCall } from 'react-icons/io';
 import { IoLocation, IoTime } from "react-icons/io5";
 
-const Contact = () => {
+const ContactSection = () => {
   // State to track whether to show the map
   const [showMap, setShowMap] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -129,4 +129,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default ContactSection;
