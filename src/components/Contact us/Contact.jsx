@@ -1,11 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoIosCall } from 'react-icons/io';
 import { IoLocation, IoTime  } from "react-icons/io5";
 
 const Contact = () => {
   // State to track whether to show the map
   const [showMap, setShowMap] = useState(false);
+ const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState(null); // 'success' or 'error'
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!email || !email.includes('@')) {
+      setMessage('Please enter a valid email address.');
+      setStatus('error');
+      return;
+    }
+
+    // Show browser confirmation prompt
+    const confirm = window.confirm(`Are you sure you want to subscribe with "${email}"?`);
+    if (!confirm) return;
+
+    try {
+      const res = await fetch('http://localhost/karmashila/newsletter/subscribe_newsletter.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      setStatus(data.success ? 'success' : 'error');
+      setMessage(data.message);
+      if (data.success) setEmail('');
+    } catch (err) {
+      setStatus('error');
+      setMessage('Something went wrong. Please try again.');
+    }
+  };
   return (
     <div className="py-12 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
@@ -50,34 +83,46 @@ const Contact = () => {
           </div>
 
           {/* Right Column */}
-          <div className="flex flex-col h-full">
-            {/* Newsletter */}
-            <div className="bg-white p-6 rounded-lg shadow-sm h-full">
-              <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">NEWSLETTER</h2>
-              <p className="text-gray-800 text-lg mb-4 font-semibold">Sign Up for Newsletter</p>
+           <div className="flex flex-col h-full">
+      <div className="bg-white p-6 rounded-lg shadow-sm h-full">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">NEWSLETTER</h2>
+        <p className="text-gray-800 text-lg mb-4 font-semibold">Sign Up for Newsletter</p>
 
-              <form className="space-y-4">
-                <div>
-                  <label htmlFor="email" className="block text-md font-medium text-gray-700 mb-6">
-                    Enter Your Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full px-4 py-2 text-black border border-gray-300 rounded-md focus:ring-yellow-500 focus:border-yellow-500"
-                    placeholder="your@email.com"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-yellow-400 hover:bg-yellow-700 text-black font-medium py-2 px-4 rounded-md"
-                >
-                  Subscribe
-                </button>
-              </form>
-            </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="email" className="block text-md font-medium text-gray-700 mb-2">
+              Enter Your Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 text-black border border-gray-300 rounded-md focus:ring-yellow-500 focus:border-yellow-500"
+              placeholder="your@email.com"
+              required
+            />
           </div>
+
+          <button
+            type="submit"
+            className="w-full bg-yellow-400 hover:bg-yellow-700 text-black font-medium py-2 px-4 rounded-md transition duration-200"
+          >
+            Subscribe
+          </button>
+        </form>
+
+        {message && (
+          <div
+            className={`mt-4 p-3 rounded-md ${
+              status === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+            }`}
+          >
+            {message}
+          </div>
+        )}
+      </div>
+    </div>
         </div>
 
 

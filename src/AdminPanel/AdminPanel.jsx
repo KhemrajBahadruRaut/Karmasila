@@ -18,6 +18,8 @@ import { RiDashboardFill } from "react-icons/ri";
 import AdminBlogUpload from "./cms/BlogControls/AdminBlogUpload";
 import { LiaBlogSolid } from "react-icons/lia";
 import Dashboard from "./Dashbard";
+import { LuContact } from "react-icons/lu";
+import NewsletterList from "./newsletter/NewsletterList";
 
 const AdminPanel = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -64,6 +66,19 @@ const AdminPanel = () => {
           >
             <FaTachometerAlt className="mr-3 text-lg" />
             <span>Dashboard</span>
+          </button>
+          <button
+            onClick={() => setActiveSection("newsletter")}
+            className={`flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200
+              ${
+                activeSection === "newsletter"
+                  ? "bg-gray-700 text-blue-300 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-blue-300"
+              }
+            `}
+          >
+            <LuContact className="mr-3 text-lg" />
+            <span>Newsletter</span>
           </button>
 
           {/* CMS Section */}
@@ -324,11 +339,14 @@ const AdminPanel = () => {
               <AdminBlogUpload />
             </div>
           ) :
-          
-          
           activeSection === "dashboard" ? (
             <div className="space-y-6">
               <Dashboard/>
+            </div>
+          ) : 
+          activeSection === "newsletter" ? (
+            <div className="space-y-6">
+              <NewsletterList/>
             </div>
           ) : (
             <div className="bg-white rounded-xl shadow-md overflow-hidden p-6">

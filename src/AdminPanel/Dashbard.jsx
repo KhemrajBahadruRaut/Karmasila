@@ -14,7 +14,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     // fetch("http://localhost/karmashila/summary/summary.php")
-    fetch("https://karmasila.com.np/karmashila/summary/summax  ry.php")
+    fetch("https://karmasila.com.np/karmashila/summary/summary.php")
       .then((res) => res.json())
       .then((data) => {
         setStats(data);
