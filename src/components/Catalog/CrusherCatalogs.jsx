@@ -12,37 +12,44 @@ const CrusherCatalogs = () => {
     {
       id: 1,
       title: "Jaw Crusher Plates",
-      image: assets.jaw_crusher_plate,
+      alt: "Jaw Crusher Plates - Karmasila Enterprises",
+      image: assets.Karmasila_jaw_crusher_plate,
     },
     {
       id: 2,
       title: "Cone Crusher Mantles",
-      image: assets.cone_crusher,
+      alt: "Cone Crusher Mantles - Karmasila Enterprises",
+      image: assets.Karmasila_cone_crusher,
     },
     {
       id: 3,
       title: "Impact Crusher Blow Bars",
-      image: assets.blow_bars,
+      alt: "Impact Crusher Blow Bars - Karmasila Enterprises",
+      image: assets.Karmasila_blow_bars,
     },
     {
       id: 4,
       title: "Single toggle jaw Crushers",
-      image: assets.jaw_crusher_toggle,
+      alt: "Single toggle jaw Crushers - Karmasila Enterprises",
+      image: assets.Karmasila_jaw_crusher_toggle,
     },
     {
       id: 5,
       title: "Vibrating Screen Meshes",
-      image: assets.Vibrating_screen_mesh,
+
+      alt: "Vibrating Screen Meshes - Karmasila Enterprises",
+      image: assets.Karmasila_vibrating_screen_mesh,
     },
     {
       id: 6,
       title: "Double toggle jaw Crushers",
-      image: assets.jaw_crusher_double,
+      alt: "Double toggle jaw Crushers - Karmasila Enterprises",
+      image: assets.Karmasila_jaw_crusher_double,
     }
   ];
 
   // Get items to display based on state
-  const displayedItems = showAllItems ? crusherItems : crusherItems.slice(0, 3);
+  const displayedItems = showAllItems ? crusherItems : crusherItems.slice(0, 4);
 
   // const handleRequestQuote = (itemId) => {
   //    navigate("/request-quote", { state: { itemId } });
@@ -65,7 +72,7 @@ const CrusherCatalogs = () => {
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {displayedItems.map((item) => (
             <div
               key={item.id}
@@ -75,7 +82,8 @@ const CrusherCatalogs = () => {
               <div className="relative h-52 overflow-hidden">
                 <img
                   src={item.image}
-                  alt={item.title}
+                  alt={item.alt}
+                  title={item.title}
                   className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-300"
                 />
               </div>

@@ -1,25 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoLogoWhatsapp } from "react-icons/io";
+import { FaArrowUp } from "react-icons/fa"; // You can use any icon you prefer
 
 function WhatsAppBtn() {
+  const [showScroll, setShowScroll] = useState(false);
+
+  // Show the button after scrolling down 300px
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScroll(true);
+      } else {
+        setShowScroll(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Scroll to top smoothly
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
   return (
-    <div className="fixed bottom-10 right-10 flex flex-col items-center z-[1000]">
-      {/* Text with fade-in animation */}
-      {/* <div className="mb-1 group-hover:opacity-100 transition-opacity duration-300">
-        <h3 className="text-sm font-medium bg-yellow-500 text-white px-2 py-1 rounded-md">
-          CHAT NOW!
-        </h3>
-        <div className="w-0 h-0 border-l-4 border-r-4 border-b-8 border-l-transparent border-r-transparent border-b-black/80 mx-auto"></div>
-      </div> */}
-      
-      {/* WhatsApp button with pulse animation */}
+    <div className="fixed bottom-10 right-10 flex flex-col items-center space-y-3 z-[1000]">
+      {/* Scroll to Top Button */}
+      {showScroll && (
+        <button
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+          className="bg-yellow-500 text-white p-3 rounded-full shadow-lg hover:bg-yellow-600 transition-all duration-300 hover:scale-110"
+        >
+          <FaArrowUp size={20} />
+        </button>
+      )}
+
+      {/* WhatsApp Button */}
       <a
         href="https://wa.me/9779851352013"
         target="_blank"
         rel="noopener noreferrer"
         className="group bg-yellow-500 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 animate-pulse hover:animate-none"
+          title="Contact us on WhatsApp"
       >
-        <IoLogoWhatsapp size={28} className="transition-transform duration-300 group-hover:rotate-12" />
+        <IoLogoWhatsapp
+          size={28}
+          className="transition-transform duration-300 group-hover:rotate-12"
+        />
       </a>
     </div>
   );

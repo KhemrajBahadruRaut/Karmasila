@@ -1,5 +1,5 @@
 import React from 'react';
-import { assets } from '../../assets/assets.js'; // Make sure this path is correct
+import { assets } from '../../assets/assets.js';
 import { Link } from 'react-router-dom';
 
 const ImportExport = () => {
@@ -18,7 +18,7 @@ const ImportExport = () => {
             <p className="text-lg text-gray-700 leading-relaxed mb-8 text-justify">
              Karmasila Enterprises Pvt. Ltd. provides reliable import and export services for a wide range of products, including crusher parts, heavy machinery components, and various industrial goods. We source products globally and export locally made products, managing the entire process, from documentation to delivery, with complete compliance and efficient logistics. Wherever your business needs to go, we're here to help it move forward.
             </p>
-            <a href="/consult">
+            <a href="/consult"   title="Fill out the form to consult with us" >
             <button className="bg-yellow-400 hover:bg-yellow-700 text-black font-bold py-3 px-8 rounded-lg text-lg shadow-lg transition-all duration-300 transform hover:scale-105">
               Consult Now
             </button>
@@ -31,9 +31,10 @@ const ImportExport = () => {
               {/* Image */}
           <div className="overflow-hidden ">
             <img
-              src={assets.importEXPORT} 
+              src={assets.Karmasila_importEXPORT} 
               alt="Import and Export"
               className="w-full h-full object-cover"
+              title='Import and Export'
             />
           </div>
         </div>

@@ -6,25 +6,29 @@ const OurServices = () => {
   const services = [
     {
       title: "Supply of Quality Crusher Parts",
-      image: assets.supply,
+      image: assets.Karmasila_supply,
+      alt: "Quality Crusher Parts - Karmasila Enterprises",
       description:
         "Provides a comprehensive range of spare and wear parts for all major crusher brands.",
     },
     {
       title: "Installation Support and Guidance",
-      image: assets.support,
+      image: assets.Karmasila_support,
+      alt: "Installation Support and Guidance - Karmasila Enterprises",
       description:
         "Offers expert assistance and technical guidance during installation to maximize equipment performance.",
     },
     {
       title: "Maintenance and Repair Services",
-      image: assets.maintain,
+      image: assets.Karmasila_maintain,
+      alt: "Maintenance and Repair Services - Karmasila Enterprises",
       description:
         "Provides scheduled maintenance, repairs, and overhauls for crushers and related machinery, reducing downtime and extending equipment lifespan.",
     },
     {
       title: "On-Site Inspection and Training",
-      image: assets.inspect,
+      image: assets.Karmasila_inspect,
+      alt: "On-Site Inspection and Training - Karmasila Enterprises",
       description:
         "Conducts thorough assessments to identify potential issues and advise on maintenance routines.",
     },
@@ -54,7 +58,8 @@ const OurServices = () => {
               <div className="h-56 w-full overflow-hidden">
                 <img
                   src={service.image}
-                  alt={service.title}
+                  alt={service.alt}
+                  title={service.title}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 rounded-t-2xl"
                 />
               </div>
@@ -98,7 +103,7 @@ const OurServices = () => {
             <div className="h-64 w-full overflow-hidden bg-gray-100">
               <img
                 src={selectedService.image}
-                alt={selectedService.title}
+                alt={selectedService.alt}
                 className="w-full h-full object-cover"
               />
             </div>

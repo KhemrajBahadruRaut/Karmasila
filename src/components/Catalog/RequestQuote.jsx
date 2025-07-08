@@ -12,6 +12,7 @@ const RequestQuote = () => {
     email: '',
     phone: '',
     company: '',
+    product: '',
     message: ''
   });
 
@@ -40,10 +41,12 @@ const RequestQuote = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="navbar bg-white">
+    <>
+    <div className="bg-white">
         <Navbar />
       </div>
+    <div className="min-h-screen bg-gray-50">
+      
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-6 py-6">
        
@@ -164,6 +167,7 @@ const RequestQuote = () => {
       </div>
       <Footer />
     </div>
+    </>
   );
 };
 

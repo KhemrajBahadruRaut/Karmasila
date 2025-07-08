@@ -46,7 +46,7 @@ const BlogSection = () => {
     <Navbar/>
       <section className="min-h-screen container mx-auto bg-gradient-to-b from-white to-gray-100 px-4 md:px-20 pb-16 ">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 relative inline-block">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 relative inline-block">
             Latest Blogs
         
           </h2>
