@@ -5,23 +5,33 @@ const NewsletterList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    fetch('http://localhost/karmashila/newsletter/get_newsletter.php') 
-      .then(res => res.json())
-      .then(data => {
+useEffect(() => {
+  fetch('https://karmasila.com.np/karmashila/newsletter/get_newsletter.php')
+  // fetch('http://localhost/karmashila/newsletter/get_newsletter.php')
+    .then(async res => {
+      const contentType = res.headers.get("content-type");
+      if (!res.ok) throw new Error("Server error");
+
+      if (contentType && contentType.includes("application/json")) {
+        const data = await res.json();
         if (data.success) {
           setSubscribers(data.subscribers);
         } else {
           setError('Failed to fetch subscribers');
         }
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error(err);
-        setError('An error occurred');
-        setLoading(false);
-      });
-  }, []);
+      } else {
+        throw new Error("Invalid JSON response");
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      setError('An error occurred');
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+}, []);
+
 
   return (
     <div className="bg-white p-6 rounded-lg shadow">
