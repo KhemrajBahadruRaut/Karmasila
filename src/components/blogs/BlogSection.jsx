@@ -48,13 +48,13 @@ const BlogSection = () => {
     <Navbar/>
       <section className="min-h-screen container mx-auto bg-gradient-to-b from-white to-gray-100 px-4 md:px-20 pb-16 ">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 relative inline-block">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 relative inline-block">
             Latest Blogs
         
-          </h2>
-          <p className="text-gray-500 mt-2 text-sm md:text-base">
+          </h1>
+          <h2 className="text-gray-500 mt-2 text-sm md:text-base">
             Stay updated with our newest insights and stories.
-          </p>
+          </h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">

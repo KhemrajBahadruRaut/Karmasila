@@ -85,7 +85,7 @@ const Footer = () => {
             className="inline-block mb-2"
             title="Visit GR8 Nepal"
           >
-            <img src={assets.GR8NEPAL} alt="GR8 Nepal Logo" className="w-10 h-10 object-contain mx-auto" />
+            <img src={assets.GR8NEPAL} alt="GR8 Nepal Logo" title="Visit GR8 Nepal" className="w-10 h-10 object-contain mx-auto" />
           </a>
           <p className="text-gray-500 text-sm">
             © {new Date().getFullYear()} Karmasila Enterprises Pvt Ltd. All rights reserved.
