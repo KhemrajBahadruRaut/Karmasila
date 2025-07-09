@@ -23,7 +23,8 @@ const ContactSection = () => {
     if (!confirm) return;
 
     try {
-      const res = await fetch('http://localhost/karmashila/newsletter/subscribe_newsletter.php', {
+      // const res = await fetch('http://localhost/karmashila/newsletter/subscribe_newsletter.php', {
+      const res = await fetch('https://karmasila.com.np/karmashila/newsletter/subscribe_newsletter.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),

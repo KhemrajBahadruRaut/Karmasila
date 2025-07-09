@@ -20,6 +20,7 @@ import { LiaBlogSolid } from "react-icons/lia";
 import Dashboard from "./Dashbard";
 import { LuContact } from "react-icons/lu";
 import NewsletterList from "./newsletter/NewsletterList";
+import ContactMessages from "./contacts/ContactMessages";
 
 const AdminPanel = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -67,6 +68,8 @@ const AdminPanel = () => {
             <FaTachometerAlt className="mr-3 text-lg" />
             <span>Dashboard</span>
           </button>
+
+          {/* newsleter */}
           <button
             onClick={() => setActiveSection("newsletter")}
             className={`flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200
@@ -79,6 +82,20 @@ const AdminPanel = () => {
           >
             <LuContact className="mr-3 text-lg" />
             <span>Newsletter</span>
+          </button>
+          {/* contacts */}
+          <button
+            onClick={() => setActiveSection("contacts")}
+            className={`flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200
+              ${
+                activeSection === "contacts"
+                  ? "bg-gray-700 text-blue-300 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-blue-300"
+              }
+            `}
+          >
+            <LuContact className="mr-3 text-lg" />
+            <span>Contacts</span>
           </button>
 
           {/* CMS Section */}
@@ -347,6 +364,11 @@ const AdminPanel = () => {
           activeSection === "newsletter" ? (
             <div className="space-y-6">
               <NewsletterList/>
+            </div>
+          ) : 
+          activeSection === "contacts" ? (
+            <div className="space-y-6">
+              <ContactMessages/>
             </div>
           ) : (
             <div className="bg-white rounded-xl shadow-md overflow-hidden p-6">
