@@ -29,7 +29,7 @@ const Footer = () => {
             </h3>
             <ul className="space-y-2 flex flex-col items-center text-center">
               <li>
-                <p className="mb-2 text-gray-600">karmasilaenterprises@gmail.com</p>
+                <p className="mb-2 text-gray-600">info@karmasila.com.np</p>
               </li>
               <li>
                 <div className="flex space-x-4 mt-2">
@@ -39,7 +39,7 @@ const Footer = () => {
                   <a href="https://www.instagram.com/karmasila_enterprises/" target="_blank" rel="noopener noreferrer" title="Instagram" className="text-gray-600 hover:text-yellow-600 transition-colors">
                     <FaInstagram size={20} />
                   </a>
-                  <a href="mailto:karmasilaenterprises@gmail.com" title="Email" className="text-gray-600 hover:text-yellow-600 transition-colors">
+                  <a href="mailto:info@karmasila.com.np" title="Email" className="text-gray-600 hover:text-yellow-600 transition-colors">
                     <SiGmail size={20} />
                   </a>
                   <a href="viber://chat?number=+9779851352013" title="Viber" className="text-gray-600 hover:text-yellow-600 transition-colors">
