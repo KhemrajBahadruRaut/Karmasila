@@ -5,32 +5,60 @@ const NewsletterList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-useEffect(() => {
-  fetch('https://karmasila.com.np/karmashila/newsletter/get_newsletter.php')
-  // fetch('http://localhost/karmashila/newsletter/get_newsletter.php')
-    .then(async res => {
-      const contentType = res.headers.get("content-type");
-      if (!res.ok) throw new Error("Server error");
+  // Load deleted IDs from localStorage
+  const getDeletedIds = () => {
+    const stored = localStorage.getItem('deleted_subscriber_ids');
+    return stored ? JSON.parse(stored) : [];
+  };
+  // Save updated deleted IDs to localStorage
+  const setDeletedIds = (ids) => {
+    localStorage.setItem('deleted_subscriber_ids', JSON.stringify(ids));
+  };
 
-      if (contentType && contentType.includes("application/json")) {
-        const data = await res.json();
-        if (data.success) {
-          setSubscribers(data.subscribers);
+  // Initial data fetch
+  useEffect(() => {
+    fetch('https://karmasila.com.np/karmashila/newsletter/get_newsletter.php')
+    // fetch('http://localhost/karmashila/newsletter/get_newsletter.php')
+      .then(async res => {
+        const contentType = res.headers.get("content-type");
+        if (!res.ok) throw new Error("Server error");
+
+        if (contentType && contentType.includes("application/json")) {
+          const data = await res.json();
+          if (data.success) {
+            const deletedIds = getDeletedIds();
+            const filtered = data.subscribers.filter(sub => !deletedIds.includes(sub.id));
+            setSubscribers(filtered);
+          } else {
+            setError('Failed to fetch subscribers');
+          }
         } else {
-          setError('Failed to fetch subscribers');
+          throw new Error("Invalid JSON response");
         }
-      } else {
-        throw new Error("Invalid JSON response");
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      setError('An error occurred');
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-}, []);
+      })
+      .catch(err => {
+        console.error(err);
+        setError('An error occurred');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  // Handle delete (persist using localStorage)
+  const handleDelete = (id) => {
+  const confirmed = window.confirm("Are you sure you want to delete this subscriber?");
+  if (!confirmed) return;
+
+  const updated = subscribers.filter(sub => sub.id !== id);
+  setSubscribers(updated);
+
+  const deletedIds = getDeletedIds();
+  if (!deletedIds.includes(id)) {
+    deletedIds.push(id);
+    setDeletedIds(deletedIds);
+  }
+};
 
 
   return (
@@ -40,14 +68,19 @@ useEffect(() => {
       {loading && <p className="text-gray-600">Loading...</p>}
       {error && <p className="text-red-600">{error}</p>}
 
-      {!loading && !error && (
+      {!loading && !error && subscribers.length === 0 && (
+        <p className="text-gray-500">No subscribers to display.</p>
+      )}
+
+      {!loading && !error && subscribers.length > 0 && (
         <div className="overflow-x-auto text-black">
           <table className="w-full text-left table-auto border-collapse">
             <thead>
               <tr className="bg-gray-100">
-                <th className="border px-4 py-2">ID</th>
+                <th className="border px-4 py-2">#</th>
                 <th className="border px-4 py-2">Email</th>
                 <th className="border px-4 py-2">Subscribed At</th>
+                <th className="border px-4 py-2">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -56,6 +89,14 @@ useEffect(() => {
                   <td className="border px-4 py-2">{index + 1}</td>
                   <td className="border px-4 py-2">{sub.email}</td>
                   <td className="border px-4 py-2">{new Date(sub.subscribed_at).toLocaleString()}</td>
+                  <td className="border px-4 py-2">
+                    <button
+                      onClick={() => handleDelete(sub.id)}
+                      className="text-red-600 hover:underline"
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

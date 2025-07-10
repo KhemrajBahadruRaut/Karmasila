@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
-import { IoIosCall } from 'react-icons/io';
-import { IoLocation, IoTime } from 'react-icons/io5';
-import Footer from '../components/Footer/Footer';
+import React, { useState } from "react";
+import Navbar from "../components/Navbar";
+import { IoIosCall } from "react-icons/io";
+import { IoLocation, IoTime } from "react-icons/io5";
+import Footer from "../components/Footer/Footer";
 
 const Contact = () => {
-   const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState(null); // 'success' or 'error'
-  const [feedback, setFeedback] = useState('');
+  const [feedback, setFeedback] = useState("");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -17,32 +17,37 @@ const Contact = () => {
     e.preventDefault();
 
     if (!form.name || !form.email || !form.message) {
-      setStatus('error');
-      setFeedback('Please fill all fields.');
+      setStatus("error");
+      setFeedback("Please fill all fields.");
       return;
     }
 
-    const confirmSend = window.confirm('Are you sure you want to send this message?');
+    const confirmSend = window.confirm(
+      "Are you sure you want to send this message?"
+    );
     if (!confirmSend) return;
 
     try {
-      const res = await fetch('https://karmasila.com.np/karmashila/contacts/submit_contact.php', {
-      // const res = await fetch('http://localhost/karmashila/contacts/submit_contact.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
+      const res = await fetch(
+        "https://karmasila.com.np/karmashila/contacts/submit_contact.php",
+        {
+          // const res = await fetch('http://localhost/karmashila/contacts/submit_contact.php', {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
 
       const data = await res.json();
-      setStatus(data.success ? 'success' : 'error');
+      setStatus(data.success ? "success" : "error");
       setFeedback(data.message);
 
       if (data.success) {
-        setForm({ name: '', email: '', message: '' });
+        setForm({ name: "", email: "", message: "" });
       }
     } catch {
-      setStatus('error');
-      setFeedback('Something went wrong.');
+      setStatus("error");
+      setFeedback("Something went wrong.");
     }
   };
   return (
@@ -82,7 +87,9 @@ const Contact = () => {
                     <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-800">
                       <IoTime /> Working Hours
                     </h3>
-                    <p className="text-gray-600">10 A.M to 6 P.M (Sun to Fri)</p>
+                    <p className="text-gray-600">
+                      10 A.M to 6 P.M (Sun to Fri)
+                    </p>
                   </div>
                 </div>
               </div>
@@ -104,69 +111,75 @@ const Contact = () => {
             </div>
 
             {/* Right Side - Contact Form */}
-             <div className="flex-1 flex flex-col">
-      <div className="bg-white p-6 rounded-lg shadow-sm h-full flex flex-col justify-between">
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          <div>
-            <label className="block text-black font-medium mb-2">Name</label>
-            <input
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              placeholder="Your Name"
-              className="w-full px-4 py-2 border border-yellow-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              required
-            />
-          </div>
+            <div className="flex-1 flex flex-col">
+              <div className="bg-white p-6 rounded-lg shadow-sm h-full flex flex-col justify-between">
+                <form className="space-y-6" onSubmit={handleSubmit}>
+                  <div>
+                    <label className="block text-black font-medium mb-2">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={form.name}
+                      onChange={handleChange}
+                      placeholder="Your Name"
+                      className="w-full px-4 py-2 border border-yellow-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                      required
+                    />
+                  </div>
 
-          <div>
-            <label className="block text-black font-medium mb-2">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="your@email.com"
-              className="w-full px-4 py-2 border border-yellow-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              required
-            />
-          </div>
+                  <div>
+                    <label className="block text-black font-medium mb-2">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={form.email}
+                      onChange={handleChange}
+                      placeholder="your@email.com"
+                      className="w-full px-4 py-2 border border-yellow-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                      required
+                    />
+                  </div>
 
-          <div>
-            <label className="block text-black font-medium mb-2">Message</label>
-            <textarea
-              name="message"
-              rows="5"
-              value={form.message}
-              onChange={handleChange}
-              placeholder="Your message..."
-              className="w-full px-4 py-2 border border-yellow-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              required
-            />
-          </div>
+                  <div>
+                    <label className="block text-black font-medium mb-2">
+                      Message
+                    </label>
+                    <textarea
+                      name="message"
+                      rows="5"
+                      value={form.message}
+                      onChange={handleChange}
+                      placeholder="Your message..."
+                      className="w-full px-4 py-2 border border-yellow-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                      required
+                    />
+                  </div>
 
-          <button
-            type="submit"
-            className="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-2 rounded-md font-semibold transition duration-300"
-          >
-            Send Message
-          </button>
-        </form>
+                  <button
+                    type="submit"
+                    className="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-2 rounded-md font-semibold transition duration-300"
+                  >
+                    Send Message
+                  </button>
+                </form>
 
-        {feedback && (
-          <div
-            className={`mt-4 p-3 rounded-md ${
-              status === 'success'
-                ? 'bg-green-100 text-green-800 border border-green-300'
-                : 'bg-red-100 text-red-800 border border-red-300'
-            }`}
-          >
-            {feedback}
-          </div>
-        )}
-      </div>
-    </div>
+                {feedback && (
+                  <div
+                    className={`mt-4 p-3 rounded-md ${
+                      status === "success"
+                        ? "bg-green-100 text-green-800 border border-green-300"
+                        : "bg-red-100 text-red-800 border border-red-300"
+                    }`}
+                  >
+                    {feedback}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>
