@@ -58,7 +58,7 @@ const Navbar = () => {
         <div className="flex justify-between h-24 items-center">
           {/* Logo */}
           <div className="flex items-center h-24">
-            <Link to="/">
+            <Link to="/" title="Home page">
               <img src={assets.Karmasila_logo} alt="Karmasila logo" title='Karmasila logo' className="logo h-32" />
             </Link>
           </div>
@@ -104,6 +104,7 @@ const Navbar = () => {
 
               <Link
                 to="/about-us"
+                title="About us"
                 className={`px-4 py-2 text-base font-semibold transition-colors hover:bg-gray-100 ${isActive("/about-us") ? "text-black bg-gray-300 rounded-sm" : "text-black"}`}
                 onClick={() => setIsOpen(false)}
               >
@@ -125,7 +126,7 @@ const Navbar = () => {
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setIsPartsOpen(!isPartsOpen)}
-                  className={`flex items-center px-4 py-2 text-base font-semibold transition-colors hover:bg-gray-100 w-full lg:w-auto ${isPartsActive ? "text-blue-600" : "text-black"
+                  className={`flex items-center px-4 py-2 text-base font-semibold transition-colors hover:bg-gray-100 w-full lg:w-auto ${isPartsActive ? "text-black bg-gray-300 rounded-sm" : "text-black"
                     }`}
                 >
                   Parts
@@ -179,6 +180,7 @@ const Navbar = () => {
 
               <Link
                 to="/blog"
+                title="Visit our blog"
                 className={`px-4 py-2 text-base font-semibold transition-colors hover:bg-gray-100 ${isActive("/blog") ? "text-black bg-gray-300 rounded-sm" : "text-black"}`}
                 onClick={() => setIsOpen(false)}
               >
@@ -188,6 +190,7 @@ const Navbar = () => {
 
               <Link
                 to="/contact"
+                title="Contact us"
                 className={`px-4 py-2 text-base font-semibold transition-colors hover:bg-gray-100 ${isActive("/contact") ? "text-black bg-gray-300 rounded-sm" : "text-black"}`}
                 onClick={() => setIsOpen(false)}
               >

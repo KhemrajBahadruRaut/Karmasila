@@ -67,7 +67,7 @@ const Contact = () => {
             <div className="flex flex-col flex-1 space-y-6">
               {/* Contact Card */}
               <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col h-full">
-                {/* <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">CONTACT</h2> */}
+                <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">CONTACT</h2> 
                 <div className="space-y-4 flex-1">
                   <div>
                     <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-800">

@@ -15,8 +15,12 @@ const About = () => {
             About Us
           </h1>
 
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+            Karmasila Enterprises Pvt. Ltd.
+          </h2>
+
           <p className="text-lg leading-7 text-gray-700 mb-6">
-            <strong>Karmasila Enterprises Pvt. Ltd.</strong> is a trusted name in Nepal's industrial supply sector, known for delivering high-quality crusher solutions, machinery components, and import-export services. With a commitment to excellence and reliability, we serve the mining, construction, and manufacturing industries, both in Nepal and internationally.
+            Karmasila Enterprises Pvt. Ltd. is a trusted name in Nepal's industrial supply sector, known for delivering high-quality crusher solutions, machinery components, and import-export services. With a commitment to excellence and reliability, we serve the mining, construction, and manufacturing industries, both in Nepal and internationally.
           </p>
 
           <p className="text-lg leading-7 text-gray-700 mb-6">
@@ -28,7 +32,7 @@ const About = () => {
           </p>
 
           <p className="text-lg leading-7 text-gray-700">
-            With extensive industry expertise and a customer-centric approach, <strong>Karmasila Enterprises Pvt. Ltd.</strong> is committed to reducing downtime, enhancing value, and fostering industrial advancement both locally and internationally.
+            With extensive industry expertise and a customer-centric approach, is committed to reducing downtime, enhancing value, and fostering industrial advancement both locally and internationally.
           </p>
         </div>
       </section>
