@@ -11,12 +11,14 @@ const Quotebtn = () => {
     return (
         <div>
             {/* Button */}
+            <a href='/request-quote' title='Request a quote for our products'>
             <button
-                onClick={() => handleRequestQuote()}
-                className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded-md transition-colors duration-300"
+              
+                className="w-full bg-yellow-400 hover:bg-yellow-500 text-black py-2 rounded-md transition-colors duration-300"
             >
                 Request Quote
             </button>
+            </a>
 
         </div>
     )

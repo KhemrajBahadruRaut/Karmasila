@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import Navbar from '../Navbar';
 import Footer from '../Footer/Footer';
+import WhatsAppBtn from '../Home_sub/WhatsappBtn';
 
 const ConsultForm = () => {
   const location = useLocation();
@@ -63,13 +64,14 @@ const ConsultForm = () => {
       <div className="bg-white">
         <Navbar />
       </div>
+      <div><WhatsAppBtn /></div>
       <div className="min-h-screen bg-gray-50 flex flex-col mx-auto">
         <div className="container mx-auto px-4 sm:px-6 lg:px-6 py-6">
           <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden px-6 sm:p-8">
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="md:col-span-2">
                 <h1 className="text-2xl font-bold text-black mb-4">Request a Consult</h1>
-                <p className="text-gray-600">Fill out the form below and we'll get back to you soon</p>
+                <h2 className="text-gray-600">Fill out the form below and we'll get back to you soon</h2>
               </div>
 
               {/* Name */}

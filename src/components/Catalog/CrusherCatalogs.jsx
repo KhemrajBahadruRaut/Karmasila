@@ -45,6 +45,19 @@ const CrusherCatalogs = () => {
       title: "Double Toggle Jaw Crushers",
       alt: "Double toggle jaw Crushers - Karmasila Enterprises",
       image: assets.Karmasila_jaw_crusher_double,
+    },
+     {
+      id: 7,
+      title: "Vibrating Screen Meshes",
+
+      alt: "Vibrating Screen Meshes - Karmasila Enterprises",
+      image: assets.Karmasila_vibrating_screen_mesh,
+    },
+    {
+      id: 8,
+      title: "Double Toggle Jaw Crushers",
+      alt: "Double toggle jaw Crushers - Karmasila Enterprises",
+      image: assets.Karmasila_jaw_crusher_double,
     }
   ];
 

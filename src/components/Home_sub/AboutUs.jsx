@@ -25,7 +25,7 @@ const AboutUs = () => {
                         </p>
                       
                         <a href="/about-us"   title="Fill out the form to consult with us" >
-            <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-lg text-lg shadow-lg transition-all duration-300 transform hover:scale-105">
+            <button className="bg-yellow-400 hover:bg-yellow-500 text-black py-3 px-8 rounded-lg text-lg shadow-lg transition-all duration-300 transform hover:scale-105">
               Learn more
             </button>
             </a>

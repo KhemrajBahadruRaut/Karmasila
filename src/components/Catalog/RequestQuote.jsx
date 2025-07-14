@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
 import Footer from '../Footer/Footer';
+import WhatsAppBtn from '../Home_sub/WhatsappBtn';
 
 const RequestQuote = () => {
   const location = useLocation();
@@ -45,6 +46,8 @@ const RequestQuote = () => {
     <div className="bg-white">
         <Navbar />
       </div>
+
+      <div> <WhatsAppBtn /></div>
     <div className="min-h-screen bg-gray-50">
       
       
@@ -55,7 +58,7 @@ const RequestQuote = () => {
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="md:col-span-2">
               <h1 className="text-2xl font-bold text-black mb-4">Request a Quote</h1>
-              <p className="text-gray-600">Fill out the form below and we'll get back to you soon</p>
+              <h2 className="text-gray-600">Fill out the form below and we'll get back to you soon</h2>
             </div>
 
             <div>
