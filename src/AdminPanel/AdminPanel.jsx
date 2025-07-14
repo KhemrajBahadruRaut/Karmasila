@@ -21,6 +21,7 @@ import Dashboard from "./Dashbard";
 import { LuContact } from "react-icons/lu";
 import NewsletterList from "./newsletter/NewsletterList";
 import ContactMessages from "./contacts/ContactMessages";
+import { BsNewspaper } from "react-icons/bs";
 
 const AdminPanel = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -80,7 +81,7 @@ const AdminPanel = () => {
               }
             `}
           >
-            <LuContact className="mr-3 text-lg" />
+            <BsNewspaper className="mr-3 text-lg" />
             <span>Newsletter</span>
           </button>
           {/* contacts */}
