@@ -19,8 +19,8 @@ const NewsletterList = () => {
 
   // Initial data fetch
   useEffect(() => {
-    // fetch('https://karmasila.com.np/karmashila/newsletter/get_newsletter.php')
-    fetch('http://localhost/karmashila/newsletter/get_newsletter.php')
+    fetch('https://karmasila.com.np/karmashila/newsletter/get_newsletter.php')
+    // fetch('http://localhost/karmashila/newsletter/get_newsletter.php')
       .then(async res => {
         const contentType = res.headers.get("content-type");
         if (!res.ok) throw new Error("Server error");

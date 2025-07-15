@@ -6,8 +6,8 @@ const CrusherCatalogAdmin = () => {
   const [form, setForm] = useState({ title: "", alt: "", id: null });
   const [imageFile, setImageFile] = useState(null);
 
-  const BASE_URL = "http://localhost/karmashila/crusher_catalogs";
-  // const BASE_URL = "https://karmasila.com.np/karmashila/crusher_catalogs";
+  // const BASE_URL = "http://localhost/karmashila/crusher_catalogs";
+  const BASE_URL = "https://karmasila.com.np/karmashila/crusher_catalogs";
 
   const fetchItems = async () => {
   try {

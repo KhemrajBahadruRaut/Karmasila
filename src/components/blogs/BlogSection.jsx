@@ -10,8 +10,8 @@ const BlogSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost/karmashila/blogs/api/blogs.php")
-    // fetch("https://karmasila.com.np/karmashila/blogs/api/blogs.php")
+    // fetch("http://localhost/karmashila/blogs/api/blogs.php")
+    fetch("https://karmasila.com.np/karmashila/blogs/api/blogs.php")
       .then((res) => res.json())
       .then((data) => {
         setBlogs(data);
@@ -66,8 +66,8 @@ const BlogSection = () => {
               >
                 {blog.image && (
                   <img
-                    src={`http://localhost/karmashila/blogs/uploads/${blog.image}`}
-                    // src={`https://karmasila.com.np/karmashila/blogs/uploads/${blog.image}`}
+                    // src={`http://localhost/karmashila/blogs/uploads/${blog.image}`}
+                    src={`https://karmasila.com.np/karmashila/blogs/uploads/${blog.image}`}
                     alt={blog.title}
                     className="w-full h-52 object-cover"
                   />
@@ -128,8 +128,8 @@ const BlogSection = () => {
 
                     {selectedBlog.image && (
                       <img
-                        src={`http://localhost/karmashila/blogs/uploads/${selectedBlog.image}`}
-                        // src={`https://karmasila.com.np/karmashila/blogs/uploads/${selectedBlog.image}`}
+                        // src={`http://localhost/karmashila/blogs/uploads/${selectedBlog.image}`}
+                        src={`https://karmasila.com.np/karmashila/blogs/uploads/${selectedBlog.image}`}
                         alt={selectedBlog.title}
                         className="w-full h-64 object-cover rounded-lg mb-6"
                       />

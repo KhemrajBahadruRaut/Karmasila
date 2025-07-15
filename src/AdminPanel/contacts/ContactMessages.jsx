@@ -18,8 +18,8 @@ const ContactMessages = () => {
   };
 
   useEffect(() => {
-    fetch('http://localhost/karmashila/contacts/get_contacts.php')
-    // fetch('https://karmasila.com.np/karmashila/contacts/get_contacts.php')
+    // fetch('http://localhost/karmashila/contacts/get_contacts.php')
+    fetch('https://karmasila.com.np/karmashila/contacts/get_contacts.php')
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
