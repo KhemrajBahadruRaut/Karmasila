@@ -4,6 +4,7 @@ import { IoIosCall } from "react-icons/io";
 import { IoLocation, IoTime } from "react-icons/io5";
 import Footer from "../components/Footer/Footer";
 import Swal from "sweetalert2";
+import WhatsAppBtn from "../components/Home_sub/WhatsappBtn";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -81,6 +82,7 @@ useEffect(() => {
       <div className="bg-white">
         <Navbar />
       </div>
+      <div> <WhatsAppBtn /></div>
 
       <div className="bg-white text-black">
         <div className="max-w-6xl mx-auto px-4 py-16">

@@ -52,14 +52,18 @@ const Home = () => {
           {/* Responsive Text Content */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white container mx-auto px-4 w-full">
             <div className="text-left px-4 sm:px-6 lg:px-8">
-              <h1 className="text-[15px] sm:text-5xl md:text-6xl font-bold mb-[-0.5rem] sm:mb-[-0.6rem]">
-                Get Crusher Parts
+              <h1 className="text-[25px]  sm:text-5xl md:text-6xl font-bold ">
+                Get Crusher & 
               </h1>
-              <h1 className="text-[25px] sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-[-0.8rem] sm:mb-[-1rem] md:mb-[-1.2rem]">
-                In
+              <h1 className="text-[25px]  sm:text-5xl md:text-6xl font-bold  ">
+                Spare Parts
               </h1>
-              <h1 className="text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-yellow-400 mb-4 sm:mb-6 md:mb-8">
-                Nepal
+            
+               <h1 className="text-[25px]  sm:text-5xl md:text-8xl font-bold">
+              
+              </h1>
+              <h1 className="text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-yellow-400 mb-4 ">
+                 In Nepal
               </h1>
             </div>
 

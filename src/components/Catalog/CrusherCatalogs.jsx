@@ -5,8 +5,8 @@ import Quotebtn from './Quotebtn.jsx';
 const CrusherCatalogs = () => {
   const [crusherItems, setCrusherItems] = useState([]);
   const [showAllItems, setShowAllItems] = useState(false);
-  // const BASE_URL = "http://localhost/karmashila/crusher_catalogs"; 
-  const BASE_URL = "https://karmasila.com.np/karmashila/crusher_catalogs"; 
+  const BASE_URL = "http://localhost/karmashila/crusher_catalogs"; 
+  // const BASE_URL = "https://karmasila.com.np/karmashila/crusher_catalogs"; 
   useEffect(() => {
     const fetchCrusherItems = async () => {
       try {

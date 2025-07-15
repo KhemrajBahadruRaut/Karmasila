@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer/Footer';
+import WhatsAppBtn from '../components/Home_sub/WhatsappBtn.jsx';
 
 const About = () => {
   return (
@@ -8,6 +9,7 @@ const About = () => {
       <div className="bg-white">
         <Navbar />
       </div>
+      <div><WhatsAppBtn /></div>
 
       <section className="bg-white text-black py-16 px-4">
         <div className="max-w-5xl mx-auto">

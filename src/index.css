@@ -15,3 +15,6 @@
   width: 5em !important;  /* smaller width */
   height: 5em !important; /* smaller height */
 }
+*{
+    font-family: 'Calibri', sans-serif;
+}
