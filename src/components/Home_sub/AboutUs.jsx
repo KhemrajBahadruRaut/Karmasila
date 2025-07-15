@@ -21,7 +21,7 @@ const AboutUs = () => {
 
                     <div className="space-y-6">
                         <p className="text-lg text-gray-700 leading-relaxed text-justify">
-                            Karmasila Enterprises supplies high-quality crusher parts, heavy equipment spares, and import/export services to mining, construction, and aggregate businesses across Nepal with a reputation for reliability, efficiency, and customer satisfaction.
+                            Karmasila Enterprises supplies high-quality complete crusher machines, used crusher machines, spare parts, and heavy equipment spares, along with import and export services for industrial goods. We serve mining, construction, and aggregate businesses across Nepal with a strong reputation for reliability, efficiency, and customer satisfaction.
                         </p>
                       
                         <a href="/about-us"   title="Fill out the form to consult with us" >
@@ -56,7 +56,7 @@ const AboutUs = () => {
                         >
                             <div className="px-6 md:px-8 pb-6 md:pb-8">
                                 <p className="text-gray-700 leading-relaxed">
-                                    To provide reliable, high-caliber crusher parts and exceptional service that enable our clients to maximize their operational efficiency and productivity. We commit to quality, timely delivery, and customer satisfaction in every transaction.
+                                    To provide complete new and used crusher machines, high-quality spare parts, and comprehensive import-export services for industrial goods. We are committed to delivering reliable, high-caliber products and exceptional service that enable our clients to maximize operational efficiency and productivity. Quality, timely delivery, and customer satisfaction guide every transaction.
                                 </p>
                             </div>
                         </div>
@@ -84,7 +84,7 @@ const AboutUs = () => {
                         >
                             <div className="px-6 md:px-8 pb-6 md:pb-8">
                                 <p className="text-gray-700 leading-relaxed">
-                                     To become Nepal's most trusted partner in crusher parts and heavy equipment solutions, recognized for our technical expertise, innovative approach, and commitment to helping clients achieve their operational goals with minimal downtime.
+                                    To become Nepal's most trusted partner in crusher parts and heavy equipment solutions, recognized for our technical expertise, innovative approach, and commitment to helping clients achieve their operational goals with minimal downtime.
                                 </p>
                             </div>
                         </div>
@@ -112,7 +112,7 @@ const AboutUs = () => {
                         >
                             <div className="px-6 md:px-8 pb-6 md:pb-8">
                                 <p className="text-gray-700 leading-relaxed">
-                                     We are dedicated to quality, reliability, and innovation—delivering precision-engineered parts with speed, integrity, and a customer-first mindset to forge lasting partnerships and drive operational success.
+                                     We are dedicated to quality, reliability, and innovation; delivering precision-engineered parts with speed, integrity, and a customer-first mindset to forge lasting partnerships and drive operational success.
                                 </p>
                             </div>
                         </div>
