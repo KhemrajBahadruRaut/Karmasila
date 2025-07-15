@@ -3,15 +3,14 @@ import RequestQuote from "../components/Catalog/RequestQuote";
 import ConsultForm from "../components/ImportExport/ConsultForm";
 import AdminPanel from "../AdminPanel/AdminPanel";
 import Dashboard from "../AdminPanel/Dashbard";
-import AddPartForm from "../AdminPanel/cms/parts/AddPartForm";
 import PartDetails from "../components/navParts/PartDetails";
 import Home from "../pages/Home";
 import BlogSection from "../components/blogs/BlogSection";
-import AdminBlogUpload from "../AdminPanel/cms/BlogControls/AdminBlogUpload";
 import AdminLogin from "../AdminPanel/AdminLogin";
 import ProtectedRoute from "./ProtectedRoute";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
+// import CrusherCatalogAdmin from "../AdminPanel/cms/crusherCatalog/CrusherCatalogAdmin";
 const MyRoutes = () => {
 
   return (
@@ -28,12 +27,13 @@ const MyRoutes = () => {
           <Route path="/dashboard" element={<Dashboard />} />
 
           {/* for dynamic part section  */}
-          <Route path="/parts/add" element={<AddPartForm />} />
           <Route path="/parts/:id" element={<PartDetails />} />
 
           {/* for Blog section */}
           <Route path="/blog" element={<BlogSection />} />
-          <Route path="/blog/add" element={<AdminBlogUpload />} />
+
+          {/* for catalog section */}
+          {/* <Route path="/catalogs/add" element={<CrusherCatalogAdmin/>}/> */}
 
           {/*this is for admin panel  */}
           <Route path="/adminlogin" element={<AdminLogin />} />

@@ -22,6 +22,7 @@ import { LuContact } from "react-icons/lu";
 import NewsletterList from "./newsletter/NewsletterList";
 import ContactMessages from "./contacts/ContactMessages";
 import { BsNewspaper } from "react-icons/bs";
+import CrusherCatalogAdmin from "./cms/crusherCatalog/CrusherCatalogAdmin";
 
 const AdminPanel = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -70,7 +71,7 @@ const AdminPanel = () => {
             <span>Dashboard</span>
           </button>
 
-          {/* newsleter */}
+          {/* newsletter */}
           <button
             onClick={() => setActiveSection("newsletter")}
             className={`flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200
@@ -111,7 +112,7 @@ const AdminPanel = () => {
                 }
               `}
             >
-              <div className="flex items-center">
+              <div className="flex items-center ">
                 <FaCogs className="mr-3 text-lg" />
                 <span>CMS</span>
               </div>
@@ -121,7 +122,7 @@ const AdminPanel = () => {
             </button>
 
             {expandedSections.cms && (
-              <div className="pl-8 space-y-1 mt-1">
+              <div className="pl-8 space-y-1 mt-1 mb-2">
                 {/* Parts Subsection */}
                 <div className="space-y-1">
                   <button
@@ -225,6 +226,51 @@ const AdminPanel = () => {
                     </div>
                   )}
                 </div>
+
+                {/* Product Catalog */}
+                <div className="space-y-1">
+                  <button
+                    onClick={() => toggleSection("catalogs")}
+                    className={`flex items-center justify-between w-full px-4 py-2 rounded-lg transition-all duration-200
+                      ${
+                        expandedSections.parts ||
+                        activeSection.startsWith("catalogs")
+                          ? "bg-gray-600 text-blue-300 font-medium"
+                          : "hover:bg-gray-600 hover:text-blue-200"
+                      }
+                    `}
+                  >
+                    <div className="flex items-center">
+                      <LiaBlogSolid className="mr-3" />
+                      <span className="text-[13px]">Catalogs</span>
+                    </div>
+                    <span>
+                      {expandedSections.catalogs ? (
+                        <FaChevronUp />
+                      ) : (
+                        <FaChevronDown />
+                      )}
+                    </span>
+                  </button>
+
+                  {expandedSections.catalogs && (
+                    <div className="pl-8 space-y-1 mt-1">
+                      {/* Add New Part button */}
+                      <button
+                        onClick={() => setActiveSection("catalogs/add")}
+                        className={`block w-full text-left px-4 py-1 rounded-lg transition-all duration-200
+        ${
+          activeSection === "catalogs/add"
+            ? "bg-blue-400 text-gray-900 font-medium shadow-inner"
+            : "hover:bg-gray-500 hover:text-white"
+        }
+      `}
+                      >
+                        <span className="text-[11px]">Add catalogs</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             )}
           </div>
@@ -275,12 +321,13 @@ const AdminPanel = () => {
             <FaCog className="mr-3 text-lg" />
             <span>Settings</span>
           </button>
-          <button 
-          onClick={() => {
-    localStorage.removeItem("isAdminLoggedIn");
-    window.location.href = "/adminlogin";
-  }}
-          className="flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200 hover:bg-red-900 hover:text-red-200">
+          <button
+            onClick={() => {
+              localStorage.removeItem("isAdminLoggedIn");
+              window.location.href = "/adminlogin";
+            }}
+            className="flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200 hover:bg-red-900 hover:text-red-200"
+          >
             <FaSignOutAlt className="mr-3 text-lg" />
             <span>Logout</span>
           </button>
@@ -319,7 +366,9 @@ const AdminPanel = () => {
                 {/* <div className="h-20 w-20 rounded-full bg-gradient-to-r from-yellow-500 to-yellow-600 flex items-center justify-center text-white font-bold">
                   <img src="/image-removebg-preview.png" alt="" />
                 </div> */}
-                <span className="text-gray-700 font-medium">Welcome! Admin</span>
+                <span className="text-gray-700 font-medium">
+                  Welcome! Admin
+                </span>
               </div>
             </div>
           </div>
@@ -351,25 +400,25 @@ const AdminPanel = () => {
               </div>
               <Details />
             </div>
-          ) :
-          activeSection === "blogs/add" ? (
+          ) : activeSection === "blogs/add" ? (
             <div className="bg-white rounded-xl shadow-md overflow-hidden p-6">
               <AdminBlogUpload />
             </div>
-          ) :
-          activeSection === "dashboard" ? (
+          ) : activeSection === "dashboard" ? (
             <div className="space-y-6">
-              <Dashboard/>
+              <Dashboard />
             </div>
-          ) : 
-          activeSection === "newsletter" ? (
+          ) : activeSection === "newsletter" ? (
             <div className="space-y-6">
-              <NewsletterList/>
+              <NewsletterList />
             </div>
-          ) : 
-          activeSection === "contacts" ? (
+          ) : activeSection === "contacts" ? (
             <div className="space-y-6">
-              <ContactMessages/>
+              <ContactMessages />
+            </div>
+          ) :  activeSection === "catalogs/add" ? (
+            <div className="space-y-6">
+              <CrusherCatalogAdmin />
             </div>
           ) : (
             <div className="bg-white rounded-xl shadow-md overflow-hidden p-6">

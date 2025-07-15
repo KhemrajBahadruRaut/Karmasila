@@ -72,7 +72,6 @@ const AddPartForm = () => {
   const handleEdit = (part) => {
     setForm({
       name: part.name,
-      slug: part.slug,
       status: part.status.toString(),
     });
     setEditingPartId(part.id);
@@ -93,7 +92,7 @@ const AddPartForm = () => {
         fetchParts();
         if (editingPartId === id) {
           setEditingPartId(null);
-          setForm({ name: "", slug: "", status: "1" });
+          setForm({ name: "",  status: "1" });
         }
       } else {
         setFeedback("❌ Failed to delete part: " + (data.error || "Unknown error"));
@@ -159,7 +158,7 @@ const AddPartForm = () => {
               type="button"
               onClick={() => {
                 setEditingPartId(null);
-                setForm({ name: "", slug: "", status: "1" });
+                setForm({ name: "", status: "1" });
               }}
               className="px-4 py-2 rounded border border-gray-400 text-gray-700 hover:bg-gray-100"
               disabled={loading}

@@ -14,6 +14,7 @@ const Navbar = () => {
 
   useEffect(() => {
     fetch("https://karmasila.com.np/karmashila/parts/get_nav_parts.php")
+    // fetch("http://localhost/karmashila/parts/get_nav_parts.php")
       .then((res) => {
         if (!res.ok) throw new Error(`Server error: ${res.status}`);
         return res.json();

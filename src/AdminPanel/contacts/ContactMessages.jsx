@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Swal from "sweetalert2";
 
 const ContactMessages = () => {
   const [messages, setMessages] = useState([]);
@@ -17,8 +18,8 @@ const ContactMessages = () => {
   };
 
   useEffect(() => {
-    // fetch('http://localhost/karmashila/contacts/get_contacts.php')
-    fetch('https://karmasila.com.np/karmashila/contacts/get_contacts.php')
+    fetch('http://localhost/karmashila/contacts/get_contacts.php')
+    // fetch('https://karmasila.com.np/karmashila/contacts/get_contacts.php')
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -37,20 +38,46 @@ const ContactMessages = () => {
   }, []);
 
   // Delete a message (frontend only)
-  const handleDelete = (id) => {
-    const confirmed = window.confirm("Are you sure you want to delete this message?");
-    if (!confirmed) return;
+  const handleDelete = async (id) => {
+ const result = await Swal.fire({
+  text: "Do you really want to delete?",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!",
+  width: 250,
+  padding: "1em",
+  customClass: {
+    confirmButton: 'swal2-small-btn',
+    cancelButton: 'swal2-small-btn'
+  }
+});
 
-    const updated = messages.filter(msg => msg.id !== id);
-    setMessages(updated);
 
-    const deletedIds = getDeletedIds();
-    if (!deletedIds.includes(id)) {
-      deletedIds.push(id);
-      setDeletedIds(deletedIds);
-    }
-  };
+  if (!result.isConfirmed) return;
 
+  const updated = messages.filter(msg => msg.id !== id);
+  setMessages(updated);
+
+  const deletedIds = getDeletedIds();
+  if (!deletedIds.includes(id)) {
+    deletedIds.push(id);
+    setDeletedIds(deletedIds);
+  }
+
+Swal.fire({
+  text: "The message has been deleted.",
+  icon: "success",
+  confirmButtonColor: "#3085d6",
+  width: 350,
+  padding: "1em",
+  customClass: {
+    confirmButton: 'swal2-small-btn',
+    icon: 'swal2-small-icon'
+  }
+});
+
+};
   return (
     <div className="bg-white p-6 rounded-lg shadow-md text-black">
       <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">Contact Submissions</h2>

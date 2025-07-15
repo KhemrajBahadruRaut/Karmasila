@@ -318,7 +318,7 @@ const Details = () => {
                         accept="image/*"
                         onChange={handleEditFileChange}
                         ref={editFileInputRef}
-                        className="mb-2"
+                        className="mb-2 border  border-gray-300  rounded-lg py-2 pl-2"
                       />
                       <div className="flex space-x-2">
                         <button

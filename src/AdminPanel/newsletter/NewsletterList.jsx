@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
+
 
 const NewsletterList = () => {
   const [subscribers, setSubscribers] = useState([]);
@@ -17,8 +19,8 @@ const NewsletterList = () => {
 
   // Initial data fetch
   useEffect(() => {
-    fetch('https://karmasila.com.np/karmashila/newsletter/get_newsletter.php')
-    // fetch('http://localhost/karmashila/newsletter/get_newsletter.php')
+    // fetch('https://karmasila.com.np/karmashila/newsletter/get_newsletter.php')
+    fetch('http://localhost/karmashila/newsletter/get_newsletter.php')
       .then(async res => {
         const contentType = res.headers.get("content-type");
         if (!res.ok) throw new Error("Server error");
@@ -46,9 +48,23 @@ const NewsletterList = () => {
   }, []);
 
   // Handle delete (persist using localStorage)
-  const handleDelete = (id) => {
-  const confirmed = window.confirm("Are you sure you want to delete this subscriber?");
-  if (!confirmed) return;
+   const handleDelete = async (id) => {
+  const result = await Swal.fire({
+   text: "Do you really want to delete?",
+   showCancelButton: true,
+   confirmButtonColor: "#3085d6",
+   cancelButtonColor: "#d33",
+   confirmButtonText: "Yes, delete it!",
+   width: 250,
+   padding: "1em",
+   customClass: {
+     confirmButton: 'swal2-small-btn',
+     cancelButton: 'swal2-small-btn'
+   }
+ });
+ 
+
+  if (!result.isConfirmed) return;
 
   const updated = subscribers.filter(sub => sub.id !== id);
   setSubscribers(updated);
@@ -58,7 +74,20 @@ const NewsletterList = () => {
     deletedIds.push(id);
     setDeletedIds(deletedIds);
   }
-};
+
+  
+  Swal.fire({
+    text: "The message has been deleted.",
+    icon: "success",
+    confirmButtonColor: "#3085d6",
+    width: 350,
+    padding: "1em",
+    customClass: {
+      confirmButton: 'swal2-small-btn',
+      icon: 'swal2-small-icon'
+    }
+  });};
+
 
 
   return (
@@ -77,7 +106,7 @@ const NewsletterList = () => {
           <table className="w-full text-left table-auto border-collapse">
             <thead>
               <tr className="bg-gray-100">
-                <th className="border px-4 py-2">#</th>
+                <th className="border px-4 py-2">Id</th>
                 <th className="border px-4 py-2">Email</th>
                 <th className="border px-4 py-2">Subscribed At</th>
                 <th className="border px-4 py-2">Action</th>

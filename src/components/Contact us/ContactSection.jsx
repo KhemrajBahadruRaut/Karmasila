@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { IoIosCall } from 'react-icons/io';
 import { IoLocation, IoTime } from "react-icons/io5";
+import Swal from 'sweetalert2';
+
 
 const ContactSection = () => {
   // State to track whether to show the map
@@ -9,37 +11,90 @@ const ContactSection = () => {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState(null); // 'success' or 'error'
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!email || !email.includes('@')) {
-      setMessage('Please enter a valid email address.');
-      setStatus('error');
-      return;
-    }
+  if (!email || !email.includes('@')) {
+    setMessage('Please enter a valid email address.');
+    setStatus('error');
+    return;
+  }
 
-    // Show browser confirmation prompt
-    const confirm = window.confirm(`Are you sure you want to subscribe with "${email}"?`);
-    if (!confirm) return;
+  // SweetAlert confirmation
+ const result = await Swal.fire({
+  title: 'Are you sure?',
+  text: `You want to subscribe with "${email}"?`,
+  // icon: 'question',
+  showCancelButton: true,
+  confirmButtonText: 'Yes, Subscribe!',
+  cancelButtonText: 'Cancel',
 
-    try {
-      // const res = await fetch('http://localhost/karmashila/newsletter/subscribe_newsletter.php', {
-      const res = await fetch('https://karmasila.com.np/karmashila/newsletter/subscribe_newsletter.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+  customClass: {
+    popup: 'w-[280px]! p-4 rounded-xl text-sm bg-white shadow',
+    title: 'text-lg text-gray-800 font-semibold',
+    htmlContainer: 'text-sm text-gray-600',
+    confirmButton: 'text-gray-700 bg-yellow-400 px-4 py-2 rounded font-semibold hover:bg-yellow-500',
+    cancelButton: 'text-white bg-red-500 px-4 py-2 rounded font-semibold hover:bg-red-600 ml-2'
+  },
+  buttonsStyling: false
+});
+
+  if (!result.isConfirmed) return;
+
+  try {
+    const res = await fetch('http://localhost/karmashila/newsletter/subscribe_newsletter.php', {
+    // const res = await fetch('https://karmasila.com.np/karmashila/newsletter/subscribe_newsletter.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await res.json();
+
+    setStatus(data.success ? 'success' : 'error');
+    setMessage(data.message);
+
+    if (data.success) {
+      setEmail('');
+     await Swal.fire({
+  icon: 'success',
+  title: 'Subscribed!',
+  text: data.message,
+  confirmButtonText: 'OK',
+  buttonsStyling: false, // ✅ This disables default styles
+  customClass: {
+    popup: 'w-[300px]! p-2! rounded-xl text-sm bg-white shadow',
+    title: 'text-lg text-green-700 font-semibold',
+    htmlContainer: 'text-sm text-gray-700',
+    confirmButton: 'bg-green-500 text-white px-4 py-2 rounded font-medium hover:bg-green-600'
+  },
+  // buttonsStyling: false
+});
+
+    } else {
+      await Swal.fire({
+        icon: 'error',
+        text: data.message,
+         customClass: {
+    popup: 'w-[250px]! p-2! rounded-xl text-sm bg-white shadow'
+  },
+  // buttonsStyling: false
       });
-
-      const data = await res.json();
-
-      setStatus(data.success ? 'success' : 'error');
-      setMessage(data.message);
-      if (data.success) setEmail('');
-    } catch (err) {
-      setStatus('error');
-      setMessage('Something went wrong. Please try again.');
     }
-  };
+  } catch (err) {
+    setStatus('error');
+    setMessage('Something went wrong. Please try again.');
+
+    await Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Something went wrong. Please try again.',
+    });
+  }
+};
+
+
+  
   return (
     <div className="py-12 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
@@ -113,15 +168,16 @@ const ContactSection = () => {
           </button>
         </form>
 
-        {message && (
-          <div
-            className={`mt-4 p-3 rounded-md ${
-              status === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-            }`}
-          >
-            {message}
-          </div>
-        )}
+          {/* {message && (
+    <div
+      className={`mt-4 p-3 rounded-md ${
+        status === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+      }`}
+    >
+      {message}
+    </div>
+  )} */}
+
       </div>
     </div>
         </div>

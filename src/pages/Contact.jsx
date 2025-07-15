@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { IoIosCall } from "react-icons/io";
 import { IoLocation, IoTime } from "react-icons/io5";
 import Footer from "../components/Footer/Footer";
+import Swal from "sweetalert2";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -13,43 +14,68 @@ const Contact = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!form.name || !form.email || !form.message) {
-      setStatus("error");
-      setFeedback("Please fill all fields.");
-      return;
+  if (!form.name || !form.email || !form.message) {
+    setStatus("error");
+    setFeedback("Please fill all fields.");
+    return;
+  }
+
+  // SweetAlert2 confirmation
+ const result = await Swal.fire({
+  title: "Are you sure?",
+  text: "Do you really want to send this message?",
+  // icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  cancelButtonWidth:"10px",
+  
+  confirmButtonText: "Yes, send it!",
+  width: 300,
+  height: 100,
+  // padding: "1em",
+});
+
+
+  if (!result.isConfirmed) return;
+
+  try {
+    // const res = await fetch("https://karmasila.com.np/karmashila/contacts/submit_contact.php", {
+    const res = await fetch("http://localhost/karmashila/contacts/submit_contact.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+
+    const data = await res.json();
+    setStatus(data.success ? "success" : "error");
+    setFeedback(data.message);
+
+    if (data.success) {
+      setForm({ name: "", email: "", message: "" });
     }
+  } catch {
+    setStatus("error");
+    setFeedback("Something went wrong.");
+  }
+};
 
-    const confirmSend = window.confirm(
-      "Are you sure you want to send this message?"
-    );
-    if (!confirmSend) return;
+useEffect(() => {
+  if (feedback) {
+    Swal.fire({
+      // title: status === "success" ? "Success" : "Error",
+      text: feedback,
+      icon: status === "success" ? "success" : "error",
+      confirmButtonColor: "#3085d6",
+      width:360
+    });
+  }
+}, [feedback]);
 
-    try {
-      const res = await fetch(
-        "https://karmasila.com.np/karmashila/contacts/submit_contact.php",
-        {
-          // const res = await fetch('http://localhost/karmashila/contacts/submit_contact.php', {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
-        }
-      );
 
-      const data = await res.json();
-      setStatus(data.success ? "success" : "error");
-      setFeedback(data.message);
-
-      if (data.success) {
-        setForm({ name: "", email: "", message: "" });
-      }
-    } catch {
-      setStatus("error");
-      setFeedback("Something went wrong.");
-    }
-  };
   return (
     <>
       <div className="bg-white">
@@ -67,7 +93,9 @@ const Contact = () => {
             <div className="flex flex-col flex-1 space-y-6">
               {/* Contact Card */}
               <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col h-full">
-                <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">CONTACT</h2> 
+                <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">
+                  CONTACT
+                </h2>
                 <div className="space-y-4 flex-1">
                   <div>
                     <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-800">
@@ -112,7 +140,7 @@ const Contact = () => {
 
             {/* Right Side - Contact Form */}
             <div className="flex-1 flex flex-col">
-              <div className="bg-white p-6 rounded-lg shadow-sm h-full flex flex-col justify-between">
+              <div className="bg-white p-6 rounded-lg shadow-sm h-full flex flex-col ">
                 <form className="space-y-6" onSubmit={handleSubmit}>
                   <div>
                     <label className="block text-black font-medium mb-2">
@@ -166,18 +194,8 @@ const Contact = () => {
                     Send Message
                   </button>
                 </form>
+          
 
-                {feedback && (
-                  <div
-                    className={`mt-4 p-3 rounded-md ${
-                      status === "success"
-                        ? "bg-green-100 text-green-800 border border-green-300"
-                        : "bg-red-100 text-red-800 border border-red-300"
-                    }`}
-                  >
-                    {feedback}
-                  </div>
-                )}
               </div>
             </div>
           </div>

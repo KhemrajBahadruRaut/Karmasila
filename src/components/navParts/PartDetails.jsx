@@ -12,8 +12,8 @@ const PartDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetch(`https://karmasila.com.np/karmashila/parts_details/get_detail_by_id.php?id=${id}`)
-    // fetch(`http://localhost/karmashila/parts_details/get_detail_by_id.php?id=${id}`)
+    // fetch(`https://karmasila.com.np/karmashila/parts_details/get_detail_by_id.php?id=${id}`)
+    fetch(`http://localhost/karmashila/parts_details/get_detail_by_id.php?id=${id}`)
       .then((res) => {
         if (!res.ok) throw new Error("Network response was not ok");
         return res.json();
@@ -117,8 +117,8 @@ const PartDetails = () => {
                   {detail.image && (
                     <div className="h-48 overflow-hidden">
                       <img
-                        src={`https://karmasila.com.np/karmashila/uploads/${detail.image}`}
-                        // src={`http://localhost/karmashila/uploads/${detail.image}`}
+                        // src={`https://karmasila.com.np/karmashila/uploads/${detail.image}`}
+                        src={`http://localhost/karmashila/uploads/${detail.image}`}
                         alt={detail.title}
                         className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                         loading="lazy"
@@ -193,8 +193,8 @@ const PartDetails = () => {
                 {selectedDetail.image && (
                   <div className="mb-8 rounded-lg overflow-hidden">
                     <img
-                      src={`https://karmasila.com.np/karmashila/uploads/${selectedDetail.image}`}
-                      // src={`http://localhost/karmashila/uploads/${selectedDetail.image}`}
+                      // src={`https://karmasila.com.np/karmashila/uploads/${selectedDetail.image}`}
+                      src={`http://localhost/karmashila/uploads/${selectedDetail.image}`}
                       alt={selectedDetail.title}
                       className="w-full h-auto max-h-96 object-cover"
                     />

@@ -1,3 +1,17 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+
+.swal2-small-btn {
+  font-size: 0.75rem !important;
+  padding: 0.25em 0.75em !important;
+}
+.swal2-small-btn {
+  font-size: 0.85rem !important;
+  padding: 0.25em 0.95em !important;
+}
+
+.swal2-small-icon {
+  width: 5em !important;  /* smaller width */
+  height: 5em !important; /* smaller height */
+}
