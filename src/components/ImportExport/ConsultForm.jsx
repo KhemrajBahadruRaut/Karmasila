@@ -70,7 +70,7 @@ const ConsultForm = () => {
           <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden px-6 sm:p-8">
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="md:col-span-2">
-                <h1 className="text-2xl font-bold text-black mb-4">Request a Consult</h1>
+                <h1 className="text-2xl font-bold text-black mb-4 mt-2">Request a Consult</h1>
                 <h2 className="text-gray-600">Fill out the form below and we'll get back to you soon</h2>
               </div>
 
