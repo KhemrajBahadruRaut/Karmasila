@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import SearchBar from "../../../components/Home_sub/SearchBar";
 
 const AddPartForm = () => {
   const [form, setForm] = useState({ name: "", slug: "", status: "1" });
@@ -108,11 +109,12 @@ const AddPartForm = () => {
   const inactiveParts = parts.filter((p) => parseInt(p.status) === 0);
 
   return (
+
+    <>
     <div className="p-6 bg-white shadow-xl rounded-xl max-w-2xl mx-auto">
       <h2 className="text-xl font-bold text-black mb-4">
         {editingPartId ? "✏️ Edit Part" : "➕ Add New Part"}
       </h2>
-
       {feedback && (
         <div
           className={`mb-4 p-3 text-sm font-medium rounded-lg shadow-md ${
@@ -177,8 +179,10 @@ const AddPartForm = () => {
         <PartList parts={inactiveParts} handleEdit={handleEdit} handleDelete={handleDelete} loading={loading} inactive />
       </div>
     </div>
+    </>
   );
 };
+
 
 const PartList = ({ parts, handleEdit, handleDelete, loading, inactive }) => {
   if (parts.length === 0) {
@@ -211,5 +215,6 @@ const PartList = ({ parts, handleEdit, handleDelete, loading, inactive }) => {
     </ul>
   );
 };
+
 
 export default AddPartForm;

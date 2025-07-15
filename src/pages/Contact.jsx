@@ -44,8 +44,8 @@ const handleSubmit = async (e) => {
   if (!result.isConfirmed) return;
 
   try {
-    // const res = await fetch("https://karmasila.com.np/karmashila/contacts/submit_contact.php", {
-    const res = await fetch("http://localhost/karmashila/contacts/submit_contact.php", {
+    const res = await fetch("https://karmasila.com.np/karmashila/contacts/submit_contact.php", {
+    // const res = await fetch("http://localhost/karmashila/contacts/submit_contact.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),

@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import { IoIosSearch } from "react-icons/io";
 import { Link } from 'react-router-dom';
 
-const SearchBar = ({ parts = [] }) => {
+const SearchBar = ({ items = [], labelKey = 'name', routePrefix = '' }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredParts = searchTerm.trim()
-    ? parts.filter(
-        part =>
-          part.status === "1" &&
-          part.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredItems = searchTerm.trim()
+    ? items.filter(item =>
+        item[labelKey]?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : [];
 
@@ -20,24 +18,30 @@ const SearchBar = ({ parts = [] }) => {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search parts..."
+          placeholder="Search..."
           className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-gray-500"
         />
         <IoIosSearch className="absolute right-3 text-gray-500 pointer-events-none" size={20} />
       </div>
 
-      {filteredParts.length > 0 && (
+      {searchTerm.trim() && (
         <div className="absolute top-full left-0 right-0 mt-1 bg-white border rounded-md shadow-lg z-40 max-h-60 overflow-y-auto">
-          {filteredParts.map((part) => (
-            <Link
-              key={part.id}
-              to={`/parts/${part.id}`}
-              className="block px-4 py-2 text-sm text-black hover:bg-gray-100"
-              onClick={() => setSearchTerm('')}
-            >
-              {part.name}
-            </Link>
-          ))}
+          {filteredItems.length > 0 ? (
+            filteredItems.map((item) => (
+              <Link
+                key={item.id}
+                to={`${routePrefix}${item.id}`}
+                className="block px-4 py-2 text-sm text-black hover:bg-gray-100"
+                onClick={() => setSearchTerm('')}
+              >
+                {item[labelKey]}
+              </Link>
+            ))
+          ) : (
+            <div className="px-4 py-2 text-sm text-gray-500">
+              No matching results
+            </div>
+          )}
         </div>
       )}
     </div>
