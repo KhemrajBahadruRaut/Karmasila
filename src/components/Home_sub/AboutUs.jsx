@@ -55,7 +55,7 @@ const AboutUs = () => {
                             className={`transition-all duration-500 ease-in-out overflow-hidden ${openSection === 'mission' ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
                         >
                             <div className="px-6 md:px-8 pb-6 md:pb-8">
-                                <p className="text-gray-700 leading-relaxed">
+                                <p className="text-gray-700 leading-relaxed text-justify">
                                     To provide complete new and used crusher machines, high-quality spare parts, and comprehensive import-export services for industrial goods. We are committed to delivering reliable, high-caliber products and exceptional service that enable our clients to maximize operational efficiency and productivity. Quality, timely delivery, and customer satisfaction guide every transaction.
                                 </p>
                             </div>
@@ -83,7 +83,7 @@ const AboutUs = () => {
                             className={`transition-all duration-500 ease-in-out overflow-hidden ${openSection === 'vision' ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
                         >
                             <div className="px-6 md:px-8 pb-6 md:pb-8">
-                                <p className="text-gray-700 leading-relaxed">
+                                <p className="text-gray-700 leading-relaxed text-justify">
                                     To become Nepal's most trusted partner in crusher parts and heavy equipment solutions, recognized for our technical expertise, innovative approach, and commitment to helping clients achieve their operational goals with minimal downtime.
                                 </p>
                             </div>
@@ -111,7 +111,7 @@ const AboutUs = () => {
                             className={`transition-all duration-500 ease-in-out overflow-hidden ${openSection === 'value' ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
                         >
                             <div className="px-6 md:px-8 pb-6 md:pb-8">
-                                <p className="text-gray-700 leading-relaxed">
+                                <p className="text-gray-700 leading-relaxed text-justify">
                                      We are dedicated to quality, reliability, and innovation; delivering precision-engineered parts with speed, integrity, and a customer-first mindset to forge lasting partnerships and drive operational success.
                                 </p>
                             </div>
