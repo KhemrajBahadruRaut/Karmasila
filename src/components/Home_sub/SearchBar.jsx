@@ -14,14 +14,14 @@ const SearchBar = ({ parts = [] }) => {
     : [];
 
   return (
-    <div className="relative w-full lg:w-64 mb-2 lg:mb-0 lg:mr-4">
+    <div className="relative w-full lg:w-52 mb-2 lg:mb-0 lg:mr-2 ">
       <div className="relative flex items-center">
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search parts..."
-          className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-gray-500"
+          className="w-full px-2 py-2 pr-10 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-gray-500"
         />
         <IoIosSearch className="absolute right-3 text-gray-500 pointer-events-none" size={20} />
       </div>
