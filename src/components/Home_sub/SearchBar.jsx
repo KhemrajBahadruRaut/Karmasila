@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { IoIosSearch } from "react-icons/io";
 import { Link } from 'react-router-dom';
+import { homeSubItems } from './homeSubItems';
+// import { homeSubItems } from './Home_sub/homeSubItems';
 
-const SearchBar = ({ items = [], labelKey = 'name', routePrefix = '' }) => {
+
+const SearchBar = ({ items = homeSubItems, labelKey = 'name', routePrefix = '', handleScrollOrNavigate }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredItems = searchTerm.trim()
@@ -10,6 +13,14 @@ const SearchBar = ({ items = [], labelKey = 'name', routePrefix = '' }) => {
         item[labelKey]?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : [];
+
+  const handleClick = (item, e) => {
+    setSearchTerm('');
+    if (item.scrollToId && handleScrollOrNavigate) {
+      e.preventDefault();
+      handleScrollOrNavigate(item.scrollToId);
+    }
+  };
 
   return (
     <div className="relative w-full lg:w-64 mb-2 lg:mb-0 lg:mr-4">
@@ -30,9 +41,9 @@ const SearchBar = ({ items = [], labelKey = 'name', routePrefix = '' }) => {
             filteredItems.map((item) => (
               <Link
                 key={item.id}
-                to={`${routePrefix}${item.id}`}
+                to={item.route ? item.route : `${routePrefix}${item.id}`}
                 className="block px-4 py-2 text-sm text-black hover:bg-gray-100"
-                onClick={() => setSearchTerm('')}
+                onClick={(e) => handleClick(item, e)}
               >
                 {item[labelKey]}
               </Link>
@@ -48,4 +59,12 @@ const SearchBar = ({ items = [], labelKey = 'name', routePrefix = '' }) => {
   );
 };
 
-export default SearchBar;
+const App = () => {
+  return (
+    <div>
+      <SearchBar items={homeSubItems} labelKey="name" />
+    </div>
+  );
+};
+
+export default App;

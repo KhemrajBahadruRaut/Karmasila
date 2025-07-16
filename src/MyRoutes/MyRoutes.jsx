@@ -21,6 +21,11 @@ const MyRoutes = () => {
           <Route path="/about-us" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           
+
+          {/* services */}
+          <Route path="/services" element={<Home />} />
+
+          {/* Import Export */}
           <Route path="/request-quote" element={<RequestQuote />} />
           <Route path="/consult" element={<ConsultForm />} />
 

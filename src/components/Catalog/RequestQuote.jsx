@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
 import Footer from '../Footer/Footer';
 import WhatsAppBtn from '../Home_sub/WhatsappBtn';
+import Swal from 'sweetalert2';
 
 const RequestQuote = () => {
   const location = useLocation();
@@ -34,12 +35,57 @@ const RequestQuote = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Your quote request has been submitted successfully!');
-    navigate('/');
+    const confirm = await Swal.fire({
+      title: 'Confirm Submission',
+      text: 'Are you sure you want to submit your quote request?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#facc15',
+      cancelButtonColor: '#d1d5db',
+      confirmButtonText: 'Yes, submit',
+      cancelButtonText: 'Cancel',
+    });
+    if (!confirm.isConfirmed) return;
+
+    try {
+      // const response = await fetch('http://localhost/karmashila/quote/submit_quote.php', {
+        const response = await fetch('https://karmasila.com.np/karmashila/quote/submit_quote.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Submitted!',
+          text: 'Thank you for submitting your quote request.',
+          confirmButtonColor: '#facc15',
+        })
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: result.error || 'Submission failed.',
+          confirmButtonColor: '#f87171',
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Network Error',
+        text: error.message,
+        confirmButtonColor: '#f87171',
+      });
+    }
   };
+
 
   return (
     <>

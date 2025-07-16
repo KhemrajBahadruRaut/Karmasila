@@ -23,6 +23,8 @@ import NewsletterList from "./newsletter/NewsletterList";
 import ContactMessages from "./contacts/ContactMessages";
 import { BsNewspaper } from "react-icons/bs";
 import CrusherCatalogAdmin from "./cms/crusherCatalog/CrusherCatalogAdmin";
+import AdminConsultRequests from "./consult/AdminConsultRequests";
+import AdminQuoteRequests from "./quote/AdminQuoteRequests";
 
 const AdminPanel = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -83,7 +85,7 @@ const AdminPanel = () => {
             `}
           >
             <BsNewspaper className="mr-3 text-lg" />
-            <span>Newsletter</span>
+            <span>Newsletter Data</span>
           </button>
           {/* contacts */}
           <button
@@ -97,7 +99,38 @@ const AdminPanel = () => {
             `}
           >
             <LuContact className="mr-3 text-lg" />
-            <span>Contacts</span>
+            <span>Contacts Data</span>
+          </button>
+
+
+          {/* consult */}
+          <button
+            onClick={() => setActiveSection("consult")}
+            className={`flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200
+              ${
+                activeSection === "consult"
+                  ? "bg-gray-700 text-blue-300 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-blue-300"
+              }
+            `}
+          >
+            <LuContact className="mr-3 text-lg" />
+            <span>Consult Data</span>
+          </button>
+
+          {/* quote */}
+          <button
+            onClick={() => setActiveSection("quote")}
+            className={`flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200
+              ${
+                activeSection === "quote"
+                  ? "bg-gray-700 text-blue-300 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-blue-300"
+              }
+            `}
+          >
+            <LuContact className="mr-3 text-lg" />
+            <span>Quote Data</span>
           </button>
 
           {/* CMS Section */}
@@ -408,6 +441,10 @@ const AdminPanel = () => {
             <div className="space-y-6">
               <Dashboard />
             </div>
+          ) : activeSection === "consult" ? (
+            <div className="space-y-6">
+              <AdminConsultRequests />
+            </div>
           ) : activeSection === "newsletter" ? (
             <div className="space-y-6">
               <NewsletterList />
@@ -415,6 +452,10 @@ const AdminPanel = () => {
           ) : activeSection === "contacts" ? (
             <div className="space-y-6">
               <ContactMessages />
+            </div>
+          ) : activeSection === "quote" ? (
+            <div className="space-y-6">
+              <AdminQuoteRequests />
             </div>
           ) :  activeSection === "catalogs/add" ? (
             <div className="space-y-6">

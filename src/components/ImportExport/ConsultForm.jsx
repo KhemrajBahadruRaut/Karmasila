@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Navbar from '../Navbar';
 import Footer from '../Footer/Footer';
 import WhatsAppBtn from '../Home_sub/WhatsappBtn';
+import Swal from 'sweetalert2';
 
 const ConsultForm = () => {
   const location = useLocation();
@@ -48,16 +49,59 @@ const ConsultForm = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Your quote request has been submitted successfully!');
-    
-    // Clear saved data
-    localStorage.removeItem(STORAGE_KEY);
-    
-    navigate('/');
-  };
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  const confirm = await Swal.fire({
+    title: 'Confirm Submission',
+    text: 'Are you sure you want to submit your consult request?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#facc15',
+    cancelButtonColor: '#d1d5db',
+    confirmButtonText: 'Yes, submit',
+    cancelButtonText: 'Cancel',
+  });
+  if (!confirm.isConfirmed) return;
+
+  try {
+    const response = await fetch('https://karmasila.com.np/karmashila/consult/submit_consult.php', {
+    // const response = await fetch('http://localhost/karmashila/consult/submit_consult.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Submitted!',
+        text: 'Thankyou for submitting your consult request.',
+        confirmButtonColor: '#facc15',
+      }).then(() => {
+        navigate('/');
+      });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: result.error || 'Submission failed.',
+        confirmButtonColor: '#f87171',
+      });
+    }
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Network Error',
+      text: error.message,
+      confirmButtonColor: '#f87171',
+    });
+  }
+};
+
 
   return (
     <>
