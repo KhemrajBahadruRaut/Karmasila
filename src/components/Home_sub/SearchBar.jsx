@@ -1,15 +1,32 @@
+
 import React, { useState } from 'react';
 import { IoIosSearch } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import { homeSubItems } from './homeSubItems';
-// import { homeSubItems } from './Home_sub/homeSubItems';
 
 
-const SearchBar = ({ items = homeSubItems, labelKey = 'name', routePrefix = '', handleScrollOrNavigate }) => {
+const SearchBar = ({ navParts = [], labelKey = 'name', routePrefix = '', handleScrollOrNavigate }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
+
+  // Merge static nav items and dynamic navParts, avoid duplicate part names
+  const navPartItems = (Array.isArray(navParts) && navParts.length > 0)
+    ? navParts.map(part => ({
+        id: `part-${part.id}`,
+        name: part.name,
+        route: `/parts/${part.id}`
+      }))
+    : [];
+
+  // Remove 'Parts' static item if dynamic parts exist
+  const staticItems = homeSubItems.filter(item => item.id !== 'parts');
+  const mergedItems = [...staticItems, ...navPartItems];
+
+
+      
+
   const filteredItems = searchTerm.trim()
-    ? items.filter(item =>
+    ? mergedItems.filter(item =>
         item[labelKey]?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : [];
@@ -61,12 +78,4 @@ const SearchBar = ({ items = homeSubItems, labelKey = 'name', routePrefix = '', 
   );
 };
 
-const App = () => {
-  return (
-    <div>
-      <SearchBar items={homeSubItems} labelKey="name" />
-    </div>
-  );
-};
-
-export default App;
+export default SearchBar;

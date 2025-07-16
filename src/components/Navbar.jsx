@@ -18,6 +18,7 @@ const Navbar = () => {
 
   useEffect(() => {
     fetch("https://karmasila.com.np/karmashila/parts/get_nav_parts.php")
+    // fetch("http://localhost/karmashila/parts/get_nav_parts.php")
       .then((res) => {
         if (!res.ok) throw new Error(`Server error: ${res.status}`);
         return res.json();
@@ -92,7 +93,7 @@ const Navbar = () => {
         <div className="flex flex-col lg:flex-row w-full lg:items-center lg:space-x-4 xl:space-x-6"> {/* Responsive spacing */}
           {/* Search Bar - Adjusted for better alignment */}
           <div className="px-4 lg:px-0 py-2 lg:py-0 lg:mr-4">
-            <SearchBar />
+            <SearchBar navParts={activeParts} />
           </div>
 
           {/* Navigation Links with responsive padding */}

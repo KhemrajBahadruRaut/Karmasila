@@ -18,7 +18,7 @@ import { RiDashboardFill } from "react-icons/ri";
 import AdminBlogUpload from "./cms/BlogControls/AdminBlogUpload";
 import { LiaBlogSolid } from "react-icons/lia";
 import Dashboard from "./Dashbard";
-import { LuContact } from "react-icons/lu";
+import { LuContact, LuFileText, LuMessageCircle } from "react-icons/lu";
 import NewsletterList from "./newsletter/NewsletterList";
 import ContactMessages from "./contacts/ContactMessages";
 import { BsNewspaper } from "react-icons/bs";
@@ -114,7 +114,7 @@ const AdminPanel = () => {
               }
             `}
           >
-            <LuContact className="mr-3 text-lg" />
+            <LuMessageCircle className="mr-3 text-lg" />
             <span>Consult Data</span>
           </button>
 
@@ -129,7 +129,7 @@ const AdminPanel = () => {
               }
             `}
           >
-            <LuContact className="mr-3 text-lg" />
+            <LuFileText className="mr-3 text-lg" />
             <span>Quote Data</span>
           </button>
 

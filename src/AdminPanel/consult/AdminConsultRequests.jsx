@@ -14,7 +14,7 @@ const AdminConsultRequests = () => {
       return;
     }
     // fetch('http://localhost/karmashila/consult/fetch_consult_requests.php')
-        fetch('http://karmasila.com.np/karmashila/quote/fetch_quote_requests.php')
+        fetch('https://karmasila.com.np/karmashila/quote/fetch_quote_requests.php')
 
       .then(res => res.json())
       .then(data => {

@@ -86,7 +86,7 @@ const PartDetails = () => {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-              Crusher Parts Catalog
+             Parts Catalog
             </h1>
             <h2 className="text-md text-gray-600 max-w-3xl mx-auto">
               Detailed specifications and information for all our crusher components
