@@ -115,7 +115,7 @@ const handleSubmit = async (e) => {
                   <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-800">
                     <IoIosCall /> Phone
                   </h3>
-                  <p className="text-gray-600">+977 (985) 1352013</p>
+                  <p className="text-gray-600">+977 (985)-1352013</p>
                 </div>
 
                 <div>

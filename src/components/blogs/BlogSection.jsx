@@ -131,7 +131,7 @@ const BlogSection = () => {
                         // src={`http://localhost/karmashila/blogs/uploads/${selectedBlog.image}`}
                         src={`https://karmasila.com.np/karmashila/blogs/uploads/${selectedBlog.image}`}
                         alt={selectedBlog.title}
-                        className="w-full h-64 object-cover rounded-lg mb-6"
+                        className="w-full h-94 object-cover rounded-lg mb-6"
                       />
                     )}
 

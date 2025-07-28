@@ -1,17 +1,12 @@
-import React from 'react'
-import { useNavigate, useLocation } from "react-router-dom";
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
 import Footer from '../Footer/Footer';
 import WhatsAppBtn from '../Home_sub/WhatsappBtn';
 import Swal from 'sweetalert2';
 
 const ConsultForm = () => {
-  const location = useLocation();
   const navigate = useNavigate();
-
-  // LocalStorage key
-  const STORAGE_KEY = "consultFormData";
 
   const [formData, setFormData] = useState({
     itemId: '',
@@ -22,93 +17,77 @@ const ConsultForm = () => {
     message: ''
   });
 
-  // Load saved data on mount
-  useEffect(() => {
-    const savedData = localStorage.getItem(STORAGE_KEY);
-    if (savedData) {
-      setFormData(JSON.parse(savedData));
-    }
-
-    // If location.state.itemId is provided, overwrite it
-    if (location.state?.itemId) {
-      setFormData(prev => ({
-        ...prev,
-        itemId: location.state.itemId
-      }));
-    }
-  }, [location.state]);
-
-  // Save form data on every change
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const updated = {
-      ...formData,
+    setFormData(prevData => ({
+      ...prevData,
       [name]: value
-    };
-    setFormData(updated);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    }));
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  const confirm = await Swal.fire({
-    title: 'Confirm Submission',
-    text: 'Are you sure you want to submit your consult request?',
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonColor: '#facc15',
-    cancelButtonColor: '#d1d5db',
-    confirmButtonText: 'Yes, submit',
-    cancelButtonText: 'Cancel',
-  });
-  if (!confirm.isConfirmed) return;
+  // Submit form
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    const response = await fetch('https://karmasila.com.np/karmashila/consult/submit_consult.php', {
-    // const response = await fetch('http://localhost/karmashila/consult/submit_consult.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
+    const confirm = await Swal.fire({
+      title: 'Confirm Submission',
+      text: 'Are you sure you want to submit your consult request?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#facc15',
+      cancelButtonColor: '#d1d5db',
+      confirmButtonText: 'Yes, submit',
+      cancelButtonText: 'Cancel',
     });
 
-    const result = await response.json();
+    if (!confirm.isConfirmed) return;
 
-    if (response.ok) {
-      Swal.fire({
-        icon: 'success',
-        title: 'Submitted!',
-        text: 'Thankyou for submitting your consult request.',
-        confirmButtonColor: '#facc15',
-      }).then(() => {
-        navigate('/');
+    try {
+      const response = await fetch('https://karmasila.com.np/karmashila/consult/submit_consult.php', {
+      // const response = await fetch('http://localhost/karmashila/consult/submit_consult.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
       });
-    } else {
+
+      const result = await response.json();
+
+      if (response.ok) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Submitted!',
+          text: 'Thank you for submitting your consult request.',
+          confirmButtonColor: '#facc15',
+        }).then(() => {
+          navigate('/');
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: result.error || 'Submission failed.',
+          confirmButtonColor: '#f87171',
+        });
+      }
+    } catch (error) {
       Swal.fire({
         icon: 'error',
-        title: 'Error',
-        text: result.error || 'Submission failed.',
+        title: 'Network Error',
+        text: error.message,
         confirmButtonColor: '#f87171',
       });
     }
-  } catch (error) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Network Error',
-      text: error.message,
-      confirmButtonColor: '#f87171',
-    });
-  }
-};
-
+  };
 
   return (
     <>
       <div className="bg-white">
         <Navbar />
       </div>
-      <div><WhatsAppBtn /></div>
+      <WhatsAppBtn />
       <div className="min-h-screen bg-gray-50 flex flex-col mx-auto">
         <div className="container mx-auto px-4 sm:px-6 lg:px-6 py-6">
           <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden px-6 sm:p-8">
@@ -118,11 +97,9 @@ const ConsultForm = () => {
                 <h2 className="text-gray-600">Fill out the form below and we'll get back to you soon</h2>
               </div>
 
-              {/* Name */}
+              {/* Full Name */}
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                  Full Name *
-                </label>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name *</label>
                 <input
                   type="text"
                   id="name"
@@ -136,9 +113,7 @@ const ConsultForm = () => {
 
               {/* Email */}
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email Address *
-                </label>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address *</label>
                 <input
                   type="email"
                   id="email"
@@ -152,9 +127,7 @@ const ConsultForm = () => {
 
               {/* Phone */}
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                  Phone Number
-                </label>
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone Number</label>
                 <input
                   type="tel"
                   id="phone"
@@ -167,9 +140,7 @@ const ConsultForm = () => {
 
               {/* Company */}
               <div>
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700">
-                  Company Name
-                </label>
+                <label htmlFor="company" className="block text-sm font-medium text-gray-700">Company Name</label>
                 <input
                   type="text"
                   id="company"
@@ -182,9 +153,7 @@ const ConsultForm = () => {
 
               {/* Message */}
               <div className="md:col-span-2">
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                  Additional Message
-                </label>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700">Additional Message</label>
                 <textarea
                   id="message"
                   name="message"

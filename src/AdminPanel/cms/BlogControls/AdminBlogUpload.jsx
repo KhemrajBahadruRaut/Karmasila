@@ -53,63 +53,72 @@ const AdminBlogUpload = () => {
     setEditingBlog({ id: null, title: "", content: "", image: null, imageChanged: false });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setStatus("");
-    setStatusType("");
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsSubmitting(true);
+  setStatus("");
+  setStatusType("");
 
-    try {
-      // let url = "http://localhost/karmashila/blogs/api/upload_blog.php";
-      let url = "https://karmasila.com.np/karmashila/blogs/api/upload_blog.php";
-      let bodyData = new FormData();
+  try {
+    // let url = "http://localhost/karmashila/blogs/api/upload_blog.php";
+    let url = "https://karmasila.com.np/karmashila/blogs/api/upload_blog.php";
+    let bodyData = new FormData();
 
-      if (editingBlog.id !== null) {
-        // url = "http://localhost/karmashila/blogs/api/update_blog.php";
-        url = "https://karmasila.com.np/karmashila/blogs/api/update_blog.php";
-        bodyData.append("id", editingBlog.id);
-        bodyData.append("title", editingBlog.title);
-        bodyData.append("content", editingBlog.content);
-        if (editingBlog.imageChanged && editingBlog.image) {
-          bodyData.append("image", editingBlog.image);
-        }
-      } else {
-        bodyData.append("title", formData.title);
-        bodyData.append("content", formData.content);
+    if (editingBlog.id !== null) {
+      // url = "http://localhost/karmashila/blogs/api/update_blog.php";
+      url = "https://karmasila.com.np/karmashila/blogs/api/update_blog.php";
+      bodyData.append("id", editingBlog.id);
+      bodyData.append("title", editingBlog.title);
+      bodyData.append("content", editingBlog.content);
+      if (editingBlog.imageChanged && editingBlog.image) {
+        bodyData.append("image", editingBlog.image);
+      }
+    } else {
+      bodyData.append("title", formData.title);
+      bodyData.append("content", formData.content);
+      if (formData.image) {
         bodyData.append("image", formData.image);
       }
-
-      const response = await fetch(url, {
-        method: "POST",
-        body: bodyData,
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        setStatus(editingBlog.id ? "✅ Blog updated!" : "✅ Blog uploaded!");
-        setStatusType("success");
-        fetchBlogs();
-        resetForm();
-      } else {
-        setStatus("❌ " + (result.error || "Operation failed"));
-        setStatusType("error");
-      }
-    } catch (error) {
-      setStatus("❌ Error: " + error.message);
-      setStatusType("error");
-    } finally {
-      setIsSubmitting(false);
-      setTimeout(() => {
-        setStatus("");
-        setStatusType("");
-      }, 4000);
     }
-  };
+
+    const response = await fetch(url, {
+      method: "POST",
+      body: bodyData,
+    });
+
+    let result;
+    try {
+      const text = await response.text();
+      console.log("🔍 Server response:", text); // Optional debug
+      result = JSON.parse(text);
+    } catch (err) {
+      throw new Error("Invalid JSON returned from server.");
+    }
+
+    if (result.success) {
+      setStatus(editingBlog.id ? "✅ Blog updated!" : "✅ Blog uploaded!");
+      setStatusType("success");
+      fetchBlogs();
+      resetForm();
+    } else {
+      setStatus("❌ " + (result.error || "Operation failed"));
+      setStatusType("error");
+    }
+  } catch (error) {
+    setStatus("❌ Error: " + error.message);
+    setStatusType("error");
+  } finally {
+    setIsSubmitting(false);
+    setTimeout(() => {
+      setStatus("");
+      setStatusType("");
+    }, 4000);
+  }
+};
 
   const fetchBlogs = () => {
     setLoadingBlogs(true);
-    // fetch("http://localhost/karmashila/blogs/api/blogs.php")
+    // fetch("http://localhos/t/karmashila/blogs/api/blogs.php")
     fetch("https://karmasila.com.np/karmashila/blogs/api/blogs.php")
       .then((res) => res.json())
       .then((data) => {
@@ -222,8 +231,8 @@ const AdminBlogUpload = () => {
             {/* Preview current image */}
             {editingBlog.id && !editingBlog.imageChanged && editingBlog.existingImage && (
               <img
-                // src={`http://localhost/karmashila/blogs/images/${editingBlog.existingImage}`}
-                src={`https://karmasila.com.np/karmashila/blogs/images/${editingBlog.existingImage}`}
+                // src={`http://localhost/karmashila/blogs/uploads/${editingBlog.existingImage}`}
+                src={`https://karmasila.com.np/karmashila/blogs/uploads/${editingBlog.existingImage}`}
                 alt="Current"
                 className="mt-2 h-24 object-contain"
               />

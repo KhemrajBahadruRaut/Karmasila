@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import SearchBar from "../../../components/Home_sub/SearchBar";
 
 const AddPartForm = () => {
   const [form, setForm] = useState({ name: "", slug: "", status: "1" });
@@ -10,15 +9,19 @@ const AddPartForm = () => {
   const [feedback, setFeedback] = useState("");
 
   const fetchParts = async () => {
-    try {
-      const res = await fetch("https://karmasila.com.np/karmashila/parts/get_nav_parts.php");
-      // const res = await fetch("http://localhost/karmashila/parts/get_nav_parts.php");
-      const data = await res.json();
-      setParts(data);
-    } catch (err) {
-      console.error("Failed to fetch parts:", err);
-    }
-  };
+  try {
+    const res = await fetch("https://karmasila.com.np/karmashila/parts/get_nav_parts.php");
+    // const res = await fetch("http://localhost/karmashila/parts/get_nav_parts.php");
+    const text = await res.text(); // Get raw response
+    console.log("Raw response:", text); // See what PHP is returning
+
+    // Then try to parse JSON
+    const data = JSON.parse(text);
+    setParts(data);
+  } catch (err) {
+    console.error("Failed to fetch parts:", err);
+  }
+};
 
   useEffect(() => {
     fetchParts();
@@ -57,7 +60,7 @@ const AddPartForm = () => {
 
       if (data.success) {
         setFeedback(editingPartId ? "✅ Part updated successfully!" : "✅ Part added successfully!");
-        setForm({ name: "", slug: "", status: "1" });
+        setForm({ name: "", status: "1" });
         setEditingPartId(null);
         fetchParts();
       } else {

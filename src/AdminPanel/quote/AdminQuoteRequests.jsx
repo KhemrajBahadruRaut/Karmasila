@@ -1,28 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import Swal from 'sweetalert2';
+import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const AdminQuoteRequests = () => {
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Only fetch if not already in localStorage
-    const saved = localStorage.getItem('adminQuoteRequests');
-    if (saved) {
-      setQuotes(JSON.parse(saved));
-      setLoading(false);
-      return;
-    }
     // fetch('http://localhost/karmashila/quote/fetch_quote_requests.php')
-    fetch('https://karmasila.com.np/karmashila/quote/fetch_quote_requests.php')
-      .then(res => res.json())
-      .then(data => {
+    fetch("https://karmasila.com.np/karmashila/quote/fetch_quote_requests.php")
+      .then((res) => res.json())
+      .then((data) => {
         setQuotes(data);
-        localStorage.setItem('adminQuoteRequests', JSON.stringify(data));
+        localStorage.setItem("adminQuoteRequests", JSON.stringify(data));
         setLoading(false);
       })
-      .catch(err => {
-        console.error('Failed to fetch quote requests:', err);
+      .catch((err) => {
+        console.error("Failed to fetch quote requests:", err);
         setLoading(false);
       });
   }, []);
@@ -41,7 +34,7 @@ const AdminQuoteRequests = () => {
                 <th className="p-2 border">Email</th>
                 <th className="p-2 border">Phone</th>
                 <th className="p-2 border">Company</th>
-                <th className="p-2 border">Product ID</th>
+                {/* <th className="p-2 border">Product ID</th> */}
                 <th className="p-2 border">Message</th>
                 <th className="p-2 border">Submitted</th>
                 <th className="p-2 border">Action</th>
@@ -55,33 +48,48 @@ const AdminQuoteRequests = () => {
                   <td className="p-2 border">{q.phone}</td>
                   <td className="p-2 border">{q.company}</td>
                   <td className="p-2 border">{q.item_id}</td>
-                  <td className="p-2 border whitespace-pre-wrap">{q.message}</td>
-                  <td className="p-2 border">{q.submitted_at}</td>
+                  <td className="p-2 border whitespace-pre-wrap">
+                    {q.message}
+                  </td>
+                  <td className="p-2 border">
+                    {new Date(q.submitted_at).toLocaleString("en-US", {
+                      timeZone: "Asia/Kathmandu",
+                      year: "numeric",
+                      month: "short",
+                      day: "2-digit",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: true,
+                    })}
+                  </td>
                   <td className="p-2 border">
                     <button
                       className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
                       onClick={async () => {
                         const confirm = await Swal.fire({
-                          title: 'Delete Request?',
-                          text: 'Are you sure you want to delete this quote request? This cannot be undone.',
-                          icon: 'warning',
+                          title: "Delete Request?",
+                          text: "Are you sure you want to delete this quote request? This cannot be undone.",
+                          icon: "warning",
                           showCancelButton: true,
-                          confirmButtonColor: '#f87171',
-                          cancelButtonColor: '#d1d5db',
-                          confirmButtonText: 'Yes, delete',
-                          cancelButtonText: 'Cancel',
+                          confirmButtonColor: "#f87171",
+                          cancelButtonColor: "#d1d5db",
+                          confirmButtonText: "Yes, delete",
+                          cancelButtonText: "Cancel",
                         });
                         if (!confirm.isConfirmed) return;
-                        setQuotes(prev => {
+                        setQuotes((prev) => {
                           const updated = prev.filter((_, i) => i !== idx);
-                          localStorage.setItem('adminQuoteRequests', JSON.stringify(updated));
+                          localStorage.setItem(
+                            "adminQuoteRequests",
+                            JSON.stringify(updated)
+                          );
                           return updated;
                         });
                         Swal.fire({
-                          icon: 'success',
-                          title: 'Deleted!',
-                          text: 'The quote request has been removed from this Quote data',
-                          confirmButtonColor: '#facc15',
+                          icon: "success",
+                          title: "Deleted!",
+                          text: "The quote request has been removed from this Quote data",
+                          confirmButtonColor: "#facc15",
                         });
                       }}
                     >

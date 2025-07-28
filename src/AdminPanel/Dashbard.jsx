@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaBoxes } from "react-icons/fa";
+import { FaBoxes, FaFileAlt, FaPen } from "react-icons/fa";
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -25,6 +25,30 @@ const Dashboard = () => {
         setLoading(false);
       });
   }, []);
+
+  const getActivityIcon = (type) => {
+  switch (type) {
+    case "blog":
+      return <FaPen className="text-purple-500" />;
+    case "catalog":
+      return <FaFileAlt className="text-green-500" />;
+    case "part":
+    default:
+      return <FaBoxes className="text-blue-500" />;
+  }
+};
+
+const getActivityTitle = (type) => {
+  switch (type) {
+    case "blog":
+      return "New blog published";
+    case "catalog":
+      return "New catalog uploaded";
+    case "part":
+    default:
+      return "New part added";
+  }
+};
 
   if (loading) return <p className="p-4">Loading dashboard...</p>;
 
@@ -56,21 +80,22 @@ const Dashboard = () => {
         </div>
         <div className="divide-y divide-gray-200">
           {stats.recent_activities.length > 0 ? (
-            stats.recent_activities.map((activity, i) => (
-              <div key={i} className="px-6 py-4 flex items-center">
-                <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center">
-                  <FaBoxes className="text-blue-500" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-900">New part added</p>
-                  <p className="text-sm text-gray-500">{activity.message}</p>
-                </div>
-                <div className="ml-auto text-sm text-gray-500">{activity.time}</div>
-              </div>
-            ))
-          ) : (
-            <p className="p-6 text-gray-500">No recent activity.</p>
-          )}
+  stats.recent_activities.map((activity, i) => (
+    <div key={i} className="px-6 py-4 flex items-center">
+      <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center">
+        {getActivityIcon(activity.type)}
+      </div>
+      <div className="ml-4">
+        <p className="text-sm font-medium text-gray-900">{getActivityTitle(activity.type)}</p>
+        <p className="text-sm text-gray-500">{activity.message}</p>
+      </div>
+      <div className="ml-auto text-sm text-gray-500">{activity.time}</div>
+    </div>
+  ))
+) : (
+  <p className="p-6 text-gray-500">No recent activity.</p>
+)}
+
         </div>
       </div>
     </div>

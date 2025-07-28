@@ -1,29 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import Swal from 'sweetalert2';
+import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const AdminConsultRequests = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Only fetch if not already in localStorage
-    const saved = localStorage.getItem('adminConsultRequests');
-    if (saved) {
-      setRequests(JSON.parse(saved));
-      setLoading(false);
-      return;
-    }
     // fetch('http://localhost/karmashila/consult/fetch_consult_requests.php')
-        fetch('https://karmasila.com.np/karmashila/quote/fetch_quote_requests.php')
-
-      .then(res => res.json())
-      .then(data => {
+    fetch(
+      "https://karmasila.com.np/karmashila/consult/fetch_consult_requests.php"
+    )
+      .then((res) => res.json())
+      .then((data) => {
         setRequests(data);
-        localStorage.setItem('adminConsultRequests', JSON.stringify(data));
+        localStorage.setItem("adminConsultRequests", JSON.stringify(data));
         setLoading(false);
       })
-      .catch(err => {
-        console.error('Failed to fetch consult requests:', err);
+      .catch((err) => {
+        console.error("Failed to fetch consult requests:", err);
         setLoading(false);
       });
   }, []);
@@ -55,32 +49,45 @@ const AdminConsultRequests = () => {
                   <td className="p-2 border">{r.phone}</td>
                   <td className="p-2 border">{r.company}</td>
                   <td className="p-2 border">{r.message}</td>
-                  <td className="p-2 border">{r.submitted_at}</td>
+                  <td className="p-2 border">
+                    {new Date(r.submitted_at).toLocaleString("en-US", {
+                      timeZone: "Asia/Kathmandu",
+                      year: "numeric",
+                      month: "short",
+                      day: "2-digit",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: true,
+                    })}
+                  </td>
                   <td className="p-2 border">
                     <button
                       className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
                       onClick={async () => {
                         const confirm = await Swal.fire({
-                          title: 'Delete Request?',
-                          text: 'Are you sure you want to delete this request? This cannot be undone.',
-                          icon: 'warning',
+                          title: "Delete Request?",
+                          text: "Are you sure you want to delete this request? This cannot be undone.",
+                          icon: "warning",
                           showCancelButton: true,
-                          confirmButtonColor: '#f87171',
-                          cancelButtonColor: '#d1d5db',
-                          confirmButtonText: 'Yes, delete',
-                          cancelButtonText: 'Cancel',
+                          confirmButtonColor: "#f87171",
+                          cancelButtonColor: "#d1d5db",
+                          confirmButtonText: "Yes, delete",
+                          cancelButtonText: "Cancel",
                         });
                         if (!confirm.isConfirmed) return;
-                        setRequests(prev => {
+                        setRequests((prev) => {
                           const updated = prev.filter((_, i) => i !== idx);
-                          localStorage.setItem('adminConsultRequests', JSON.stringify(updated));
+                          localStorage.setItem(
+                            "adminConsultRequests",
+                            JSON.stringify(updated)
+                          );
                           return updated;
                         });
                         Swal.fire({
-                          icon: 'success',
-                          title: 'Deleted!',
-                          text: 'The request has been removed from the consult data.',
-                          confirmButtonColor: '#facc15',
+                          icon: "success",
+                          title: "Deleted!",
+                          text: "The request has been removed from the consult data.",
+                          confirmButtonColor: "#facc15",
                         });
                       }}
                     >

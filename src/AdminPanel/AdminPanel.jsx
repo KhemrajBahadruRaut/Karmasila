@@ -25,6 +25,7 @@ import { BsNewspaper } from "react-icons/bs";
 import CrusherCatalogAdmin from "./cms/crusherCatalog/CrusherCatalogAdmin";
 import AdminConsultRequests from "./consult/AdminConsultRequests";
 import AdminQuoteRequests from "./quote/AdminQuoteRequests";
+import { GrCatalog } from "react-icons/gr";
 
 const AdminPanel = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -274,7 +275,7 @@ const AdminPanel = () => {
                     `}
                   >
                     <div className="flex items-center">
-                      <LiaBlogSolid className="mr-3" />
+                      <GrCatalog className="mr-3" />
                       <span className="text-[13px]">Catalogs</span>
                     </div>
                     <span>
