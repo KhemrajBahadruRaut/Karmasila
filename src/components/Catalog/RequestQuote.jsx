@@ -42,7 +42,8 @@ const RequestQuote = () => {
     };
 
     try {
-      const response = await fetch('https://karmasila.com.np/karmashila/quote/submit_quote.php', {
+      // const response = await fetch('https://karmasila.com.np/karmashila/quote/submit_quote.php', {
+      const response = await fetch('http://localhostx/karmashila/quote/submit_quote.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
