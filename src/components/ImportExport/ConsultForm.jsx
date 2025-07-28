@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
 import Footer from '../Footer/Footer';
@@ -17,18 +17,82 @@ const ConsultForm = () => {
     message: ''
   });
 
-  // Handle input changes
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
+
+  useEffect(() => {
+    Object.keys(formData).forEach(field => {
+      if (touched[field]) validateField(field, formData[field]);
+    });
+  }, [formData]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
+    setTouched(prev => ({ ...prev, [name]: true }));
   };
 
-  // Submit form
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    setTouched(prev => ({ ...prev, [name]: true }));
+    validateField(name, formData[name]);
+  };
+
+  const validateField = (field, value) => {
+    let error = '';
+
+    switch (field) {
+      case 'name':
+        if (!value.trim()) error = 'Full name is required';
+        break;
+      case 'email':
+        if (!value.trim()) {
+          error = 'Email is required';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          error = 'Invalid email format';
+        }
+        break;
+      case 'phone':
+        if (!value.trim()) {
+          error = 'Phone number is required';
+        } else if (!/^\d{7,15}$/.test(value)) {
+          error = 'Invalid phone number';
+        }
+        break;
+
+      case 'message':
+        if (!value.trim()) error = 'Message is required';
+        break;
+      default:
+        break;
+    }
+
+    setErrors(prev => ({ ...prev, [field]: error }));
+    return !error;
+  };
+
+  const validateForm = () => {
+    let valid = true;
+    Object.keys(formData).forEach(field => {
+      const isValid = validateField(field, formData[field]);
+      if (!isValid) valid = false;
+      setTouched(prev => ({ ...prev, [field]: true }));
+    });
+    return valid;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please fix the errors in the form before submitting.',
+        confirmButtonColor: '#f87171',
+      });
+      return;
+    }
 
     const confirm = await Swal.fire({
       title: 'Confirm Submission',
@@ -45,11 +109,8 @@ const ConsultForm = () => {
 
     try {
       const response = await fetch('https://karmasila.com.np/karmashila/consult/submit_consult.php', {
-      // const response = await fetch('http://localhost/karmashila/consult/submit_consult.php', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
 
@@ -61,9 +122,7 @@ const ConsultForm = () => {
           title: 'Submitted!',
           text: 'Thank you for submitting your consult request.',
           confirmButtonColor: '#facc15',
-        }).then(() => {
-          navigate('/');
-        });
+        }).then(() => navigate('/'));
       } else {
         Swal.fire({
           icon: 'error',
@@ -82,6 +141,12 @@ const ConsultForm = () => {
     }
   };
 
+  const renderError = (field) => {
+    return errors[field] && touched[field] ? (
+      <p className="text-red-500 text-sm mt-1">{errors[field]}</p>
+    ) : null;
+  };
+
   return (
     <>
       <div className="bg-white">
@@ -89,82 +154,45 @@ const ConsultForm = () => {
       </div>
       <WhatsAppBtn />
       <div className="min-h-screen bg-gray-50 flex flex-col mx-auto">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-6 py-6">
-          <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden px-6 sm:p-8">
+        <div className="container mx-auto px-4 py-6">
+          <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden px-6 py-8">
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="md:col-span-2">
-                <h1 className="text-2xl font-bold text-black mb-4 mt-2">Request a Consult</h1>
+                <h1 className="text-2xl font-bold text-black mb-4">Request a Consult</h1>
                 <h2 className="text-gray-600">Fill out the form below and we'll get back to you soon</h2>
               </div>
 
-              {/* Full Name */}
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name *</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
-                />
-              </div>
+              {['name', 'email', 'phone', 'company', 'message'].map((field) => (
+                <div key={field} className={field === 'message' ? 'md:col-span-2' : ''}>
+                  <label htmlFor={field} className="block text-sm font-medium text-gray-700">
+                    {field.charAt(0).toUpperCase() + field.slice(1)}{field === 'name' || field === 'email' ? ' *' : ''}
+                  </label>
+                  {field !== 'message' ? (
+                    <input
+                      type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'}
+                      id={field}
+                      name={field}
+                      value={formData[field]}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      required
+                      className={`mt-1 text-black block w-full px-3 py-2 border ${errors[field] && touched[field] ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500`}
+                    />
+                  ) : (
+                    <textarea
+                      id={field}
+                      name={field}
+                      rows="4"
+                      value={formData[field]}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={`mt-1 text-black block w-full px-3 py-2 border ${errors[field] && touched[field] ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500`}
+                    />
+                  )}
+                  {renderError(field)}
+                </div>
+              ))}
 
-              {/* Email */}
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address *</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
-                />
-              </div>
-
-              {/* Phone */}
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone Number</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
-                />
-              </div>
-
-              {/* Company */}
-              <div>
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700">Company Name</label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
-                />
-              </div>
-
-              {/* Message */}
-              <div className="md:col-span-2">
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700">Additional Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="4"
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
-                />
-              </div>
-
-              {/* Buttons */}
               <div className="md:col-span-2 flex justify-between mt-6 mb-4">
                 <button
                   type="button"
