@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
 import Footer from '../Footer/Footer';
@@ -10,15 +10,85 @@ const RequestQuote = () => {
   const navigate = useNavigate();
   const itemId = location.state?.itemId || '';
 
-  // Refs for form inputs
-  const nameRef = useRef();
-  const emailRef = useRef();
-  const phoneRef = useRef();
-  const companyRef = useRef();
-  const messageRef = useRef();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    message: '',
+    itemId: itemId || ''
+  });
+
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
+
+  useEffect(() => {
+    Object.keys(formData).forEach((field) => {
+      if (touched[field]) validateField(field, formData[field]);
+    });
+  }, [formData]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setTouched((prev) => ({ ...prev, [name]: true }));
+  };
+
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+    validateField(name, formData[name]);
+  };
+
+  const validateField = (field, value) => {
+    let error = '';
+    switch (field) {
+      case 'name':
+        if (!value.trim()) error = 'Full name is required';
+        break;
+      case 'email':
+        if (!value.trim()) {
+          error = 'Email is required';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          error = 'Invalid email format';
+        }
+        break;
+      case 'phone':
+        if (!value.trim()) {
+          error = 'Phone number is required';
+        } else if (!/^\d{7,15}$/.test(value)) {
+          error = 'Invalid phone number';
+        }
+        break;
+      default:
+        break;
+    }
+    setErrors((prev) => ({ ...prev, [field]: error }));
+    return !error;
+  };
+
+  const validateForm = () => {
+    let valid = true;
+    Object.keys(formData).forEach((field) => {
+      const isValid = validateField(field, formData[field]);
+      if (!isValid) valid = false;
+      setTouched((prev) => ({ ...prev, [field]: true }));
+    });
+    return valid;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please fix the errors in the form before submitting.',
+        confirmButtonColor: '#f87171',
+      });
+      return;
+    }
 
     const confirm = await Swal.fire({
       title: 'Confirm Submission',
@@ -30,16 +100,8 @@ const RequestQuote = () => {
       confirmButtonText: 'Yes, submit',
       cancelButtonText: 'Cancel',
     });
-    if (!confirm.isConfirmed) return;
 
-    const formData = {
-      itemId,
-      name: nameRef.current.value,
-      email: emailRef.current.value,
-      phone: phoneRef.current.value,
-      company: companyRef.current.value,
-      message: messageRef.current.value,
-    };
+    if (!confirm.isConfirmed) return;
 
     try {
       const response = await fetch('https://karmasila.com.np/karmashila/quote/submit_quote.php', {
@@ -77,6 +139,12 @@ const RequestQuote = () => {
     }
   };
 
+  const renderError = (field) => {
+    return errors[field] && touched[field] ? (
+      <p className="text-red-500 text-sm mt-1">{errors[field]}</p>
+    ) : null;
+  };
+
   return (
     <>
       <div className="bg-white"><Navbar /></div>
@@ -90,65 +158,41 @@ const RequestQuote = () => {
                 <h2 className="text-gray-600">Fill out the form below and we'll get back to you soon</h2>
               </div>
 
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  ref={nameRef}
-                  className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
-                />
-              </div>
+              {['name', 'email', 'phone'].map((field) => (
+                <div key={field}>
+                  <label htmlFor={field} className="block text-sm font-medium text-gray-700">
+                    {field.charAt(0).toUpperCase() + field.slice(1)} *
+                  </label>
+                  <input
+                    type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'}
+                    id={field}
+                    name={field}
+                    value={formData[field]}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required
+                    className={`mt-1 text-black block w-full px-3 py-2 border ${errors[field] && touched[field] ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500`}
+                  />
+                  {renderError(field)}
+                </div>
+              ))}
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  ref={emailRef}
-                  className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  ref={phoneRef}
-                  className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700">
-                  Company Name
-                </label>
+                <label htmlFor="company" className="block text-sm font-medium text-gray-700">Company Name</label>
                 <input
                   type="text"
                   id="company"
                   name="company"
-                  ref={companyRef}
+                  value={formData.company}
+                  onChange={handleChange}
+                    required
                   className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
                 />
               </div>
 
               {itemId && (
                 <div>
-                  <label htmlFor="itemId" className="block text-sm font-medium text-gray-700">
-                    Product ID
-                  </label>
+                  <label htmlFor="itemId" className="block text-sm font-medium text-gray-700">Product ID</label>
                   <input
                     type="text"
                     id="itemId"
@@ -161,14 +205,14 @@ const RequestQuote = () => {
               )}
 
               <div className="md:col-span-2">
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                  Additional Message
-                </label>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700">Additional Message</label>
                 <textarea
                   id="message"
                   name="message"
                   rows="4"
-                  ref={messageRef}
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
                   className="mt-1 text-black block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
                 />
               </div>
