@@ -13,7 +13,6 @@ const AdminConsultRequests = () => {
       .then((res) => res.json())
       .then((data) => {
         setRequests(data);
-        localStorage.setItem("adminConsultRequests", JSON.stringify(data));
         setLoading(false);
       })
       .catch((err) => {
@@ -77,10 +76,6 @@ const AdminConsultRequests = () => {
                         if (!confirm.isConfirmed) return;
                         setRequests((prev) => {
                           const updated = prev.filter((_, i) => i !== idx);
-                          localStorage.setItem(
-                            "adminConsultRequests",
-                            JSON.stringify(updated)
-                          );
                           return updated;
                         });
                         Swal.fire({

@@ -1,4 +1,4 @@
-import Karmasila_Front from './Karmasila_Front.png';
+// import Karmasila_Front from './Karmasila_Front.png';
 import Karmasila_supply from './Karmasila_supply.jpg';
 import Karmasila_support from './Karmasila_support.png';
 import Karmasila_maintain from './Karmasila_maintain.png';
@@ -15,7 +15,7 @@ import Karmasila_logo from './Karmasila_logo.svg';
 import Karmasila_partial_logo from './Karmasila_partial_logo.png';
 
 export const assets = {
-    Karmasila_Front: Karmasila_Front,
+    // Karmasila_Front: Karmasila_Front,
     Karmasila_supply: Karmasila_supply,
     Karmasila_support: Karmasila_support,
     Karmasila_maintain: Karmasila_maintain,

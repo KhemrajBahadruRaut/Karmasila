@@ -11,8 +11,9 @@ import {
   FaCogs,
   FaBoxes,
   FaTachometerAlt,
-  FaCog,
   FaSignOutAlt,
+  FaBars,
+  FaTimes,
 } from "react-icons/fa";
 import { RiDashboardFill } from "react-icons/ri";
 import AdminBlogUpload from "./cms/BlogControls/AdminBlogUpload";
@@ -34,6 +35,7 @@ const AdminPanel = () => {
     parts: false,
     blogs: false,
   });
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSection = (section) => {
     setExpandedSections((prev) => ({
@@ -42,15 +44,51 @@ const AdminPanel = () => {
     }));
   };
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+  };
+
+  const handleSectionClick = (section) => {
+    setActiveSection(section);
+    // Close sidebar on mobile when a section is selected
+    if (window.innerWidth < 1024) {
+      closeSidebar();
+    }
+  };
+
   return (
     <div className="flex h-screen font-sans bg-gray-50">
+      {/* Mobile Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={closeSidebar}
+        />
+      )}
+
       {/* Sidebar */}
-      <div className="w-72 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white p-6 overflow-y-auto shadow-xl flex flex-col">
+      <div className={`
+        fixed lg:static inset-y-0 left-0 z-50 w-72 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white p-6 overflow-y-auto shadow-xl flex flex-col
+        transform transition-transform duration-300 ease-in-out lg:transform-none
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}>
+        {/* Close button for mobile */}
+        <button
+          onClick={closeSidebar}
+          className="lg:hidden absolute top-4 right-4 p-2 rounded-md hover:bg-gray-700 transition-colors"
+        >
+          <FaTimes className="text-xl" />
+        </button>
+
         {/* Logo/Branding */}
         <div className="mb-10 px-2">
           <h1 className="text-2xl font-bold tracking-tight flex items-center">
-            <RiDashboardFill className="text-blue-600 mr-3 text-3xl" />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-500">
+            <RiDashboardFill className="text-yellow-500 mr-3 text-3xl" />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-yellow-500">
               Admin
             </span>
           </h1>
@@ -61,12 +99,12 @@ const AdminPanel = () => {
         <nav className="flex-1 space-y-2">
           {/* Dashboard */}
           <button
-            onClick={() => setActiveSection("dashboard")}
+            onClick={() => handleSectionClick("dashboard")}
             className={`flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200
               ${
                 activeSection === "dashboard"
-                  ? "bg-gray-700 text-blue-300 font-medium shadow-md"
-                  : "hover:bg-gray-700 hover:text-blue-300"
+                  ? "bg-gray-700 text-yellow-400 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-yellow-400"
               }
             `}
           >
@@ -76,12 +114,12 @@ const AdminPanel = () => {
 
           {/* newsletter */}
           <button
-            onClick={() => setActiveSection("newsletter")}
+            onClick={() => handleSectionClick("newsletter")}
             className={`flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200
               ${
                 activeSection === "newsletter"
-                  ? "bg-gray-700 text-blue-300 font-medium shadow-md"
-                  : "hover:bg-gray-700 hover:text-blue-300"
+                  ? "bg-gray-700 text-yellow-400 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-yellow-400"
               }
             `}
           >
@@ -90,12 +128,12 @@ const AdminPanel = () => {
           </button>
           {/* contacts */}
           <button
-            onClick={() => setActiveSection("contacts")}
+            onClick={() => handleSectionClick("contacts")}
             className={`flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200
               ${
                 activeSection === "contacts"
-                  ? "bg-gray-700 text-blue-300 font-medium shadow-md"
-                  : "hover:bg-gray-700 hover:text-blue-300"
+                  ? "bg-gray-700 text-yellow-400 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-yellow-400"
               }
             `}
           >
@@ -103,15 +141,14 @@ const AdminPanel = () => {
             <span>Contacts Data</span>
           </button>
 
-
           {/* consult */}
           <button
-            onClick={() => setActiveSection("consult")}
+            onClick={() => handleSectionClick("consult")}
             className={`flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200
               ${
                 activeSection === "consult"
-                  ? "bg-gray-700 text-blue-300 font-medium shadow-md"
-                  : "hover:bg-gray-700 hover:text-blue-300"
+                  ? "bg-gray-700 text-yellow-400 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-yellow-400"
               }
             `}
           >
@@ -121,12 +158,12 @@ const AdminPanel = () => {
 
           {/* quote */}
           <button
-            onClick={() => setActiveSection("quote")}
+            onClick={() => handleSectionClick("quote")}
             className={`flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200
               ${
                 activeSection === "quote"
-                  ? "bg-gray-700 text-blue-300 font-medium shadow-md"
-                  : "hover:bg-gray-700 hover:text-blue-300"
+                  ? "bg-gray-700 text-yellow-400 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-yellow-400"
               }
             `}
           >
@@ -141,8 +178,8 @@ const AdminPanel = () => {
               className={`flex items-center justify-between w-full px-4 py-3 rounded-lg transition-all duration-200
                 ${
                   expandedSections.cms || activeSection.startsWith("cms")
-                    ? "bg-gray-700 text-blue-400 font-medium"
-                    : "hover:bg-gray-700 hover:text-blue-300"
+                    ? "bg-gray-700 text-yellow-400 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-yellow-400"
                 }
               `}
             >
@@ -165,8 +202,8 @@ const AdminPanel = () => {
                       ${
                         expandedSections.parts ||
                         activeSection.startsWith("parts")
-                          ? "bg-gray-600 text-blue-300 font-medium"
-                          : "hover:bg-gray-600 hover:text-blue-200"
+                          ? "bg-gray-700 text-yellow-300 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-yellow-200"
                       }
                     `}
                   >
@@ -187,12 +224,12 @@ const AdminPanel = () => {
                     <div className="pl-8 space-y-1 mt-1">
                       {/* Add New Part button */}
                       <button
-                        onClick={() => setActiveSection("parts/add")}
+                        onClick={() => handleSectionClick("parts/add")}
                         className={`block w-full text-left px-4 py-1 rounded-lg transition-all duration-200
         ${
           activeSection === "parts/add"
-            ? "bg-blue-400 text-gray-900 font-medium shadow-inner"
-            : "hover:bg-gray-500 hover:text-white"
+            ? "bg-gray-700 text-yellow-200 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-yellow-200"
         }
       `}
                       >
@@ -201,12 +238,12 @@ const AdminPanel = () => {
 
                       {/* ➕ Add Product Details button */}
                       <button
-                        onClick={() => setActiveSection("parts/details")}
+                        onClick={() => handleSectionClick("parts/details")}
                         className={`block w-full text-left px-4 py-1 rounded-lg transition-all duration-200
         ${
           activeSection === "parts/details"
-            ? "bg-blue-400 text-gray-900 font-medium shadow-inner"
-            : "hover:bg-gray-500 hover:text-white"
+           ? "bg-gray-700 text-yellow-200 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-yellow-200"
         }
       `}
                       >
@@ -224,8 +261,8 @@ const AdminPanel = () => {
                       ${
                         expandedSections.parts ||
                         activeSection.startsWith("blogs")
-                          ? "bg-gray-600 text-blue-300 font-medium"
-                          : "hover:bg-gray-600 hover:text-blue-200"
+                          ? "bg-gray-700 text-yellow-300 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-yellow-200"
                       }
                     `}
                   >
@@ -244,14 +281,14 @@ const AdminPanel = () => {
 
                   {expandedSections.blogs && (
                     <div className="pl-8 space-y-1 mt-1">
-                      {/* Add New Part button */}
+                      {/* Add New blog Part button */}
                       <button
-                        onClick={() => setActiveSection("blogs/add")}
+                        onClick={() => handleSectionClick("blogs/add")}
                         className={`block w-full text-left px-4 py-1 rounded-lg transition-all duration-200
         ${
           activeSection === "blogs/add"
-            ? "bg-blue-400 text-gray-900 font-medium shadow-inner"
-            : "hover:bg-gray-500 hover:text-white"
+            ? "bg-gray-700 text-yellow-300 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-yellow-200"
         }
       `}
                       >
@@ -269,8 +306,8 @@ const AdminPanel = () => {
                       ${
                         expandedSections.parts ||
                         activeSection.startsWith("catalogs")
-                          ? "bg-gray-600 text-blue-300 font-medium"
-                          : "hover:bg-gray-600 hover:text-blue-200"
+                          ? "bg-gray-700 text-yellow-300 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-yellow-200"
                       }
                     `}
                   >
@@ -291,12 +328,12 @@ const AdminPanel = () => {
                     <div className="pl-8 space-y-1 mt-1">
                       {/* Add New Part button */}
                       <button
-                        onClick={() => setActiveSection("catalogs/add")}
+                        onClick={() => handleSectionClick("catalogs/add")}
                         className={`block w-full text-left px-4 py-1 rounded-lg transition-all duration-200
         ${
           activeSection === "catalogs/add"
-            ? "bg-blue-400 text-gray-900 font-medium shadow-inner"
-            : "hover:bg-gray-500 hover:text-white"
+           ? "bg-gray-700 text-yellow-300 font-medium shadow-md"
+                  : "hover:bg-gray-700 hover:text-yellow-200"
         }
       `}
                       >
@@ -308,53 +345,10 @@ const AdminPanel = () => {
               </div>
             )}
           </div>
-
-          {/* Users Section */}
-          {/* <button
-            onClick={() => setActiveSection("users")}
-            className={`flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200
-              ${
-                activeSection === "users"
-                    ? "bg-gray-700 text-blue-400 font-medium shadow-md"
-                    : "hover:bg-gray-700 hover:text-blue-300"
-              }
-            `}
-          >
-            <FaUsers className="mr-3 text-lg" />
-            <span>User Management</span>
-          </button> */}
-
-          {/* Analytics Section */}
-          {/* <button
-            onClick={() => setActiveSection("analytics")}
-            className={`flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200
-              ${
-                activeSection === "analytics"
-                    ? "bg-gray-700 text-blue-400 font-medium shadow-md"
-                    : "hover:bg-gray-700 hover:text-blue-300"
-              }
-            `}
-          >
-            <FaChartLine className="mr-3 text-lg" />
-            <span>Analytics</span>
-          </button> */}
         </nav>
 
         {/* Bottom Settings/Logout */}
         <div className="mt-auto pt-4 border-t border-gray-700 space-y-2">
-          <button
-            onClick={() => setActiveSection("settings")}
-            className={`flex items-center w-full px-4 py-3 rounded-lg transition-all duration-200
-              ${
-                activeSection === "settings"
-                  ? "bg-gray-700 text-blue-400 font-medium"
-                  : "hover:bg-gray-700 hover:text-blue-300"
-              }
-            `}
-          >
-            <FaCog className="mr-3 text-lg" />
-            <span>Settings</span>
-          </button>
           <button
             onClick={() => {
               localStorage.removeItem("isAdminLoggedIn");
@@ -369,38 +363,26 @@ const AdminPanel = () => {
       </div>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-auto">
+      <main className="flex-1 overflow-auto lg:ml-0">
         {/* Top Navigation */}
         <div className="bg-white shadow-sm">
-          <div className="flex justify-between items-center px-8 py-4">
-            <h2 className="text-2xl font-semibold text-gray-800 capitalize">
-              {activeSection.replace("/", " ")}
-            </h2>
+          <div className="flex justify-between items-center px-4 lg:px-8 py-4">
+            {/* Hamburger Menu Button */}
+            <div className="flex items-center">
+              <button
+                onClick={toggleSidebar}
+                className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors mr-4"
+              >
+                <FaBars className="text-xl text-gray-600" />
+              </button>
+              <h2 className="text-xl lg:text-2xl font-semibold text-gray-800 capitalize">
+                {activeSection.replace("/", " ")}
+              </h2>
+            </div>
+            
             <div className="flex items-center space-x-4">
-              {/* <div className="relative">
-                <button className="p-2 rounded-full hover:bg-gray-100">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-gray-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                    />
-                  </svg>
-                  <span className="absolute top-0 right-0 h-3 w-3 bg-red-500 rounded-full"></span>
-                </button>
-              </div> */}
               <div className="flex items-center space-x-2">
-                {/* <div className="h-20 w-20 rounded-full bg-gradient-to-r from-yellow-500 to-yellow-600 flex items-center justify-center text-white font-bold">
-                  <img src="/image-removebg-preview.png" alt="" />
-                </div> */}
-                <span className="text-gray-700 font-medium">
+                <span className="text-gray-700 font-medium text-sm lg:text-base">
                   Welcome! Admin
                 </span>
               </div>
@@ -409,9 +391,9 @@ const AdminPanel = () => {
         </div>
 
         {/* Content Area */}
-        <div className="p-8">
+        <div className="p-4 lg:p-8">
           {activeSection === "parts/add" ? (
-            <div className="bg-white rounded-xl shadow-md overflow-hidden p-6">
+            <div className="bg-white rounded-xl shadow-md overflow-hidden p-4 lg:p-6">
               <div className="mb-6">
                 <h3 className="text-xl font-semibold text-gray-800">
                   Add New Part
@@ -423,7 +405,7 @@ const AdminPanel = () => {
               <AddPartForm />
             </div>
           ) : activeSection === "parts/details" ? (
-            <div className="bg-white rounded-xl shadow-md overflow-hidden p-6">
+            <div className="bg-white rounded-xl shadow-md overflow-hidden p-4 lg:p-6">
               <div className="mb-6">
                 <h3 className="text-xl font-semibold text-gray-800">
                   Add Product Details
@@ -435,7 +417,7 @@ const AdminPanel = () => {
               <Details />
             </div>
           ) : activeSection === "blogs/add" ? (
-            <div className="bg-white rounded-xl shadow-md overflow-hidden p-6">
+            <div className="bg-white rounded-xl shadow-md overflow-hidden p-4 lg:p-6">
               <AdminBlogUpload />
             </div>
           ) : activeSection === "dashboard" ? (
@@ -463,7 +445,7 @@ const AdminPanel = () => {
               <CrusherCatalogAdmin />
             </div>
           ) : (
-            <div className="bg-white rounded-xl shadow-md overflow-hidden p-6">
+            <div className="bg-white rounded-xl shadow-md overflow-hidden p-4 lg:p-6">
               <div className="text-center py-12">
                 <h3 className="text-xl font-semibold text-gray-700 mb-2">
                   {activeSection === "dashboard"

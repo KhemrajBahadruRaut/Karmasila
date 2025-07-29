@@ -1,7 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import { assets } from '../assets/assets.js';
 import AboutUs from '../components/Home_sub/AboutUs.jsx';
 import OurServices from '../components/Home_sub/OurServices.jsx';
 import ImportExport from '../components/ImportExport/ImportExport.jsx';
@@ -43,7 +42,7 @@ const Home = () => {
         {/* Hero Section */}
         <div className="relative w-full">
           <img
-            src={assets.Karmasila_Front}
+            src="/Karmasila_Front-b4weJYbG.png"
             alt="Karmasila front page image"
             title='Karmasila front page image'
             className="w-full h-full object-fill object-center"
