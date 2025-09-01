@@ -42,7 +42,7 @@ const Home = () => {
         {/* Hero Section */}
         <div className="relative w-full">
           <img
-            src="/Karmasila_Front-b4weJYbG.png"
+            src="/Karmasila_Front-b4weJYbG.webp"
             alt="Karmasila front page image"
             title='Karmasila front page image'
             className="w-full h-full object-fill object-center"
