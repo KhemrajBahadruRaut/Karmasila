@@ -18,11 +18,11 @@ const About = () => {
           </h1>
 
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-            Karmasila Enterprises Pvt. Ltd.
+            GReight Enterprises Pvt. Ltd.
           </h2>
 
           <p className="text-lg leading-7 text-gray-700 mb-6">
-            Karmasila Enterprises Pvt. Ltd. is a trusted name in Nepal's industrial supply sector,  known for delivering complete crusher machines, used crusher machines, high-quality spare parts, and comprehensive import-export services for industrial goods. We proudly serve the mining, construction, and manufacturing industries both domestically and internationally.
+            GReight Enterprises Pvt. Ltd. is a trusted name in Nepal's industrial supply sector,  known for delivering complete crusher machines, used crusher machines, high-quality spare parts, and comprehensive import-export services for industrial goods. We proudly serve the mining, construction, and manufacturing industries both domestically and internationally.
           </p>
 
           <p className="text-lg leading-7 text-gray-700 mb-6">
@@ -36,7 +36,7 @@ const About = () => {
           </p>
 
           <p className="text-lg leading-7 text-gray-700">
-            With extensive industry expertise and a customer-centric approach, Karmasila Enterprises is committed to reducing downtime, enhancing operational value, and fostering industrial growth both locally and internationally.
+            With extensive industry expertise and a customer-centric approach, GReight Enterprises is committed to reducing downtime, enhancing operational value, and fostering industrial growth both locally and internationally.
           </p>
         </div>
       </section>

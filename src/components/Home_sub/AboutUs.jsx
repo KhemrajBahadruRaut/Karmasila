@@ -21,7 +21,7 @@ const AboutUs = () => {
 
                     <div className="space-y-6">
                         <p className="text-lg text-gray-700 leading-relaxed text-justify">
-                            Karmasila Enterprises supplies high-quality complete crusher machines, used crusher machines, spare parts, and heavy equipment spares, along with import and export services for industrial goods. We serve mining, construction, and aggregate businesses across Nepal with a strong reputation for reliability, efficiency, and customer satisfaction.
+                            GREight Enterprises supplies high-quality complete crusher machines, used crusher machines, spare parts, and heavy equipment spares, along with import and export services for industrial goods. We serve mining, construction, and aggregate businesses across Nepal with a strong reputation for reliability, efficiency, and customer satisfaction.
                         </p>
                       
                         <a href="/about-us"   title="Fill out the form to consult with us" >

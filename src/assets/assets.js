@@ -11,7 +11,7 @@ import Karmasila_blow_bars from './Karmasila_blow_bars.webp';
 import Karmasila_jaw_crusher_plate from './Karmasila_jaw_crusher_plate.webp';
 import Karmasila_cone_crusher from './Karmasila_cone_crusher.webp';
 import Karmasila_vibrating_screen_mesh from './Karmasila_vibrating_screen_mesh.webp';
-import Karmasila_logo from './Karmasila_logo.svg';
+import KarmasilaLogo from './KarmasilaLogo.webp';
 import Karmasila_partial_logo from './Karmasila_partial_logo.webp';
 
 export const assets = {
@@ -28,6 +28,6 @@ export const assets = {
     Karmasila_jaw_crusher_plate: Karmasila_jaw_crusher_plate,
     Karmasila_cone_crusher: Karmasila_cone_crusher,
     Karmasila_vibrating_screen_mesh: Karmasila_vibrating_screen_mesh,
-    Karmasila_logo: Karmasila_logo,
+    Karmasila_logo: KarmasilaLogo,
     Karmasila_partial_logo: Karmasila_partial_logo,
 };

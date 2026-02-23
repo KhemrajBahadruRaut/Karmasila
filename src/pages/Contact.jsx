@@ -15,74 +15,78 @@ const Contact = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  if (!form.name || !form.email || !form.message) {
-    setStatus("error");
-    setFeedback("Please fill all fields.");
-    return;
-  }
-
-  // SweetAlert2 confirmation
- const result = await Swal.fire({
-  title: "Are you sure?",
-  text: "Do you really want to send this message?",
-  // icon: "question",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  cancelButtonWidth:"10px",
-  
-  confirmButtonText: "Yes, send it!",
-  width: 300,
-  height: 100,
-  // padding: "1em",
-});
-
-
-  if (!result.isConfirmed) return;
-
-  try {
-    const res = await fetch("https://karmasila.com.np/karmashila/contacts/submit_contact.php", {
-    // const res = await fetch("http://localhost/karmashila/contacts/submit_contact.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-
-    const data = await res.json();
-    setStatus(data.success ? "success" : "error");
-    setFeedback(data.message);
-
-    if (data.success) {
-      setForm({ name: "", email: "", message: "" });
+    if (!form.name || !form.email || !form.message) {
+      setStatus("error");
+      setFeedback("Please fill all fields.");
+      return;
     }
-  } catch {
-    setStatus("error");
-    setFeedback("Something went wrong.");
-  }
-};
 
-useEffect(() => {
-  if (feedback) {
-    Swal.fire({
-      // title: status === "success" ? "Success" : "Error",
-      text: feedback,
-      icon: status === "success" ? "success" : "error",
+    // SweetAlert2 confirmation
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you really want to send this message?",
+      // icon: "question",
+      showCancelButton: true,
       confirmButtonColor: "#3085d6",
-      width:360
-    });
-  }
-}, [feedback]);
+      cancelButtonColor: "#d33",
+      cancelButtonWidth: "10px",
 
+      confirmButtonText: "Yes, send it!",
+      width: 300,
+      height: 100,
+      // padding: "1em",
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      const res = await fetch(
+        "https://karmasila.com.np/karmashila/contacts/submit_contact.php",
+        {
+          // const res = await fetch("http://localhost/karmashila/contacts/submit_contact.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        },
+      );
+
+      const data = await res.json();
+      setStatus(data.success ? "success" : "error");
+      setFeedback(data.message);
+
+      if (data.success) {
+        setForm({ name: "", email: "", message: "" });
+      }
+    } catch {
+      setStatus("error");
+      setFeedback("Something went wrong.");
+    }
+  };
+
+  useEffect(() => {
+    if (feedback) {
+      Swal.fire({
+        // title: status === "success" ? "Success" : "Error",
+        text: feedback,
+        icon: status === "success" ? "success" : "error",
+        confirmButtonColor: "#3085d6",
+        width: 360,
+      });
+    }
+  }, [feedback]);
 
   return (
     <>
       <div className="bg-white">
         <Navbar />
       </div>
-      <div> <WhatsAppBtn /></div>
+      <div>
+        {" "}
+        <WhatsAppBtn />
+      </div>
 
       <div className="bg-white text-black">
         <div className="max-w-6xl mx-auto px-4 py-16">
@@ -103,14 +107,14 @@ useEffect(() => {
                     <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-800">
                       <IoIosCall /> Phone
                     </h3>
-                    <p className="text-gray-600">+977 (985) 1352013</p>
+                    <p className="text-gray-600">+977 (970) 533-3552</p>
                   </div>
 
                   <div>
                     <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-800">
                       <IoLocation /> Location
                     </h3>
-                    <p className="text-gray-600">Sukhedhara, Kathmandu</p>
+                    <p className="text-gray-600">Adhinath Marg, Lalitpur</p>
                   </div>
 
                   <div>
@@ -128,13 +132,14 @@ useEffect(() => {
               <div className="bg-white p-6 rounded-lg shadow-sm flex-1">
                 <div className="h-64 bg-gray-200 rounded-md overflow-hidden">
                   <iframe
-                    title="Company Location"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.637132472818!2d85.34384587519509!3d27.728487924559197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb196796c2dde3%3A0x36a3b22f875af582!2sSukedhara%20Communication!5e0!3m2!1sen!2snp!4v1751367998251!5m2!1sen!2snp"
+                    title="GR8 Private Limited Location"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3533.089460735276!2d85.29758717519398!3d27.662558577111325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb199469466e37%3A0x7446eacf4d959deb!2sGR8%20Private%20Limited!5e0!3m2!1sen!2snp!4v1700000000000!5m2!1sen!2snp"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
                     allowFullScreen=""
                     loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
                   ></iframe>
                 </div>
               </div>
@@ -196,8 +201,6 @@ useEffect(() => {
                     Send Message
                   </button>
                 </form>
-          
-
               </div>
             </div>
           </div>

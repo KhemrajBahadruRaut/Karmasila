@@ -29,20 +29,20 @@ const Footer = () => {
             </h3>
             <ul className="space-y-2 flex flex-col items-center text-center">
               <li>
-                <p className="mb-2 text-gray-600">info@karmasila.com.np</p>
+                <p className="mb-2 text-gray-600">management@gr8.com.np</p>
               </li>
               <li>
                 <div className="flex space-x-4 mt-2">
-                  <a href="https://www.facebook.com/karmasilaenterprises" target="_blank" rel="noopener noreferrer" title="Facebook" className="text-gray-600 hover:text-yellow-600 transition-colors">
+                  <a href="https://www.facebook.com/gr8nepal" target="_blank" rel="noopener noreferrer" title="Facebook" className="text-gray-600 hover:text-yellow-600 transition-colors">
                     <FaFacebook size={20} />
                   </a>
-                  <a href="https://www.instagram.com/karmasila_enterprises/" target="_blank" rel="noopener noreferrer" title="Instagram" className="text-gray-600 hover:text-yellow-600 transition-colors">
+                  <a href="https://www.instagram.com/gr8nepal/" target="_blank" rel="noopener noreferrer" title="Instagram" className="text-gray-600 hover:text-yellow-600 transition-colors">
                     <FaInstagram size={20} />
                   </a>
-                  <a href="mailto:info@karmasila.com.np" title="Email" className="text-gray-600 hover:text-yellow-600 transition-colors">
+                  <a href="mailto:management@gr8.com.np" title="Email" className="text-gray-600 hover:text-yellow-600 transition-colors">
                     <SiGmail size={20} />
                   </a>
-                  <a href="viber://chat?number=+9779851352013" title="Viber" className="text-gray-600 hover:text-yellow-600 transition-colors">
+                  <a href="viber://chat?number=+9779705333552" title="Viber" className="text-gray-600 hover:text-yellow-600 transition-colors">
                     <FaViber size={20} />
                   </a>
                 </div>
@@ -79,7 +79,7 @@ const Footer = () => {
         <div className="mt-6 pt-4 border-t border-gray-300 text-center">
           <h3 className="text-md text-gray-600 mb-2">Powered By</h3>
           <a
-            href="https://gr8nepal.com/"
+            href="https://gr8.com.np/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block mb-2"

@@ -16,7 +16,7 @@ const ImportExport = () => {
 
           <div className="space-y-6">
             <p className="text-lg text-gray-700 leading-relaxed mb-8 text-justify">
-             Karmasila Enterprises Pvt. Ltd. provides reliable import and export services for a wide range of products, including crusher parts, heavy machinery components, and various industrial goods. We source products globally and export locally made products, managing the entire process, from documentation to delivery, with complete compliance and efficient logistics. Wherever your business needs to go, we're here to help it move forward.
+            GREightdemo Enterprises Pvt. Ltd. provides reliable import and export services for a wide range of products, including crusher parts, heavy machinery components, and various industrial goods. We source products globally and export locally made products, managing the entire process, from documentation to delivery, with complete compliance and efficient logistics. Wherever your business needs to go, we're here to help it move forward.
             </p>
             <a href="/consult"   title="Fill out the form to consult with us" >
             <button className="bg-yellow-400 hover:bg-yellow-500 text-black py-3 px-8 rounded-lg text-lg shadow-lg transition-all duration-300 transform hover:scale-105">

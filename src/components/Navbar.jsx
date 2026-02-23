@@ -67,7 +67,7 @@ const Navbar = () => {
             src={assets.Karmasila_logo}
             alt="Karmasila logo"
             title="Karmasila logo"
-            className="logo h-20 lg:h-28"
+            className="logo h-8 lg:h-12"
           />
         </Link>
       </div>
