@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RequestQuote from "../components/Catalog/RequestQuote";
 import ConsultForm from "../components/ImportExport/ConsultForm";
 import AdminPanel from "../AdminPanel/AdminPanel";
@@ -12,7 +12,6 @@ import About from "../pages/About";
 import Contact from "../pages/Contact";
 // import CrusherCatalogAdmin from "../AdminPanel/cms/crusherCatalog/CrusherCatalogAdmin";
 const MyRoutes = () => {
-
   return (
     <>
       <BrowserRouter>
@@ -20,9 +19,6 @@ const MyRoutes = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          
-
-          {/* services */}
           <Route path="/services" element={<Home />} />
 
           {/* Import Export */}
